@@ -13,14 +13,14 @@ namespace nsTracker
         }
         private List<Button> _buttons;
 
-        private void Update()
+        public void Update()
         {
-            UpdateTimer(SelectOption());
+            UpdatePressedButtons(SelectOption());
         }
 
-        public void UpdateTimer(char selection)
+        protected void UpdatePressedButtons(char selection)
         {
-            int selectedOption = Int16.Parse(selection.ToString()) - 1;
+            int selectedOption = ParseCharToInteger(selection);
             for (int i = 0; i < _buttons.Count; i++)
             {
                 if(_buttons[i].IsPressed() && selectedOption != i)
@@ -31,13 +31,19 @@ namespace nsTracker
             _buttons[selectedOption].Press();
         }
 
+        private int ParseCharToInteger(char selection)
+        {
+            int selectedOption = Int16.Parse(selection.ToString()) - 1;
+            return selectedOption;
+        }
         private char SelectOption()
         {
             for (int i = 0; i < _buttons.Count; i++)
             {
-                Console.WriteLine((i + 1) + ") Task" + (i + 1));
+                Console.WriteLine((i + 1) + ") " + _buttons[i]._name);
             }
             char selection = Console.ReadKey().KeyChar;
+            Console.WriteLine();
             return selection;
         }
     }
