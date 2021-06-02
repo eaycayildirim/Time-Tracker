@@ -12,7 +12,7 @@ namespace UnitTestTimeTracker
         public void TestPressOneButton()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { _name = "Button1" } };
+            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" } };
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When
@@ -26,7 +26,7 @@ namespace UnitTestTimeTracker
         public void TestPressTwoButtons()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { _name = "Button1" }, new Button() { _name = "Button2" } };
+            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" } };
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When
@@ -46,7 +46,7 @@ namespace UnitTestTimeTracker
         public void TestPressThreeButtons()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { _name = "Button1" }, new Button() { _name = "Button2" }, new Button() { _name = "Button3" } };
+            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" }, new Button() { Name = "Button3" } };
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When

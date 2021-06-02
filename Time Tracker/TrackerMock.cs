@@ -13,14 +13,13 @@ namespace nsTrackerMock
             this._buttons = buttons;
         }
 
-        private List<Button> _buttons;
-
-
         //Not sure about this method.
 
         public void UpdatePressedButtons(char selection) 
         {
             base.UpdatePressedButtons(selection);
         }
+
+        private List<Button> _buttons;
     }
 }

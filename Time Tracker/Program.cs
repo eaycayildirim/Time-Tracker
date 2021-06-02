@@ -9,7 +9,7 @@ namespace TimeTrackerMain
     {
         static void Main(string[] args)
         {
-            List<Button> buttons = new List<Button> { new Button() { _name = "Button 1" }, new Button() { _name = "Button 2" }, new Button() { _name = "Button 3" } };
+            List<Button> buttons = new List<Button> { new Button() { Name = "Button 1" }, new Button() { Name = "Button 2" }, new Button() { Name = "Button 3" } };
             Tracker tracker = new Tracker(buttons);
 
             tracker.Update();

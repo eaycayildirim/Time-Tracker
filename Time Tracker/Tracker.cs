@@ -11,7 +11,6 @@ namespace nsTracker
         {
             this._buttons = buttons;
         }
-        private List<Button> _buttons;
 
         public void Update()
         {
@@ -40,11 +39,13 @@ namespace nsTracker
         {
             for (int i = 0; i < _buttons.Count; i++)
             {
-                Console.WriteLine((i + 1) + ") " + _buttons[i]._name);
+                Console.WriteLine((i + 1) + ") " + _buttons[i].Name);
             }
             char selection = Console.ReadKey().KeyChar;
             Console.WriteLine();
             return selection;
         }
+
+        private List<Button> _buttons;
     }
 }
