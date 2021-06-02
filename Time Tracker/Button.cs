@@ -10,10 +10,11 @@ namespace nsButton
         public Button()
         {
             this._stopwatch = new Stopwatch();
-            this._isPressed = false;
+            //this._isPressed = false;
         }
 
         public string Name { get; set; }
+        public bool IsPressed { get; set; }
 
         public void Press()
         {
@@ -21,8 +22,10 @@ namespace nsButton
 
             TimeSpan ts = _stopwatch.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
-            _isPressed = !_isPressed;
-            if (this._isPressed)
+            //_isPressed = !_isPressed;
+            IsPressed = !IsPressed;
+            //if (this._isPressed)
+            if(this.IsPressed)
             {
                 _stopwatch.Start();
                 Console.WriteLine(Name + "; " + DateTime.Now + "; " + elapsedTime + " Started");
@@ -34,12 +37,12 @@ namespace nsButton
             }
         }
 
-        public bool IsPressed()
-        {
-            return this._isPressed;
-        }
+        //public bool IsPressed()
+        //{
+        //    return this._isPressed;
+        //}
 
         private Stopwatch _stopwatch;
-        private bool _isPressed;
+        //private bool _isPressed;
     }
 }

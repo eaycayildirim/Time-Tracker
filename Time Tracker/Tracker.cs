@@ -22,7 +22,8 @@ namespace nsTracker
             int selectedOption = ParseCharToInteger(selection);
             for (int i = 0; i < _buttons.Count; i++)
             {
-                if(_buttons[i].IsPressed() && selectedOption != i)
+                //if(_buttons[i].IsPressed() && selectedOption != i)
+                if (_buttons[i].IsPressed && selectedOption != i)
                 {
                     _buttons[i].Press();
                 }
