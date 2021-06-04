@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6092A1EB-9060-47FD-BB3B-0EA9B32CB60F}</ProjectGuid>
+    <ProjectGuid>{9D2514D8-34E5-4CDE-B997-9A2CCC620C08}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TimeTrackerUI</RootNamespace>
     <AssemblyName>TimeTrackerUI</AssemblyName>

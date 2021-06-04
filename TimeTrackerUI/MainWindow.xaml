@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeTrackerUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Time Tracker" Height="300" Width="550" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
         
     </Grid>
 </Window>

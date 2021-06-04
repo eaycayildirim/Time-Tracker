@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using nsButton;
+using nsCSV;
 
 namespace nsTracker
 {
@@ -14,7 +15,13 @@ namespace nsTracker
 
         public void Update()
         {
-            UpdatePressedButtons(SelectOption());
+            var selectedOption = SelectOption();
+            UpdatePressedButtons(selectedOption);
+
+            CSV csv = new CSV();
+            var parsedSelectedOption = ParseCharToInteger(selectedOption);
+            var log = _buttons[parsedSelectedOption].ReturnTheLog();
+            csv.WriteLogsIntoCSV(log);
         }
 
         protected void UpdatePressedButtons(char selection)

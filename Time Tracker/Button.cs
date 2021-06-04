@@ -26,7 +26,7 @@ namespace nsButton
             if (this.IsPressed)
             {
                 _stopwatch.Start();
-                Console.WriteLine(Name + "; " + DateTime.Now + "; " + elapsedTime + " Started");
+                Console.WriteLine(Name + "; " + DateTime.Now + "; Started");
             }
             else
             {
@@ -35,16 +35,16 @@ namespace nsButton
             }
         }
 
-        protected string ReturnTheLog() //it's not working yet
+        public string ReturnTheLog() //it's not working yet
         {
             string log;
             if (!_stopwatch.IsRunning)
             {
-                log = this.Name + ";" + DateTime.Now + ";Started";
+                log = this.Name + ";" + DateTime.Now + "; Finished";
             }
             else
             {
-                log = this.Name + ";" + DateTime.Now + ";" + elapsedTime + ";Finished";
+                log = this.Name + ";" + DateTime.Now + "; Started"; //+ elapsedTime
             }
             return log;
         }
