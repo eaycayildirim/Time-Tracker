@@ -18,10 +18,10 @@ namespace nsTracker
             var selectedOption = SelectOption();
             UpdatePressedButtons(selectedOption);
 
-            CSV csv = new CSV();
-            var parsedSelectedOption = ParseCharToInteger(selectedOption);
-            var log = _buttons[parsedSelectedOption].ReturnTheLog();
-            csv.WriteLogsIntoCSV(log);
+            //CSV csv = new CSV();
+            //var parsedSelectedOption = ParseCharToInteger(selectedOption);
+            //var log = _buttons[parsedSelectedOption].ReturnTheLog();
+            //csv.WriteLogsIntoCSV(log);
         }
 
         protected void UpdatePressedButtons(char selection)

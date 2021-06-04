@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using nsCSV;
 
 namespace nsButton
 {
@@ -33,22 +34,27 @@ namespace nsButton
                 _stopwatch.Stop();
                 Console.WriteLine(Name + "; " + DateTime.Now + "; " + elapsedTime + " Finished");
             }
+
+            // This part shouldn't be here but where should it be?
+            _log = ReturnTheLog(elapsedTime);
+            CSV csv = new CSV();
+            csv.WriteLogsIntoCSV(_log);
         }
 
-        public string ReturnTheLog() //it's not working yet
+        public string ReturnTheLog(string elapsedTime)
         {
-            string log;
             if (!_stopwatch.IsRunning)
             {
-                log = this.Name + ";" + DateTime.Now + "; Finished";
+                _log = this.Name + ";" + DateTime.Now + " " + elapsedTime + "; Finished";
             }
             else
             {
-                log = this.Name + ";" + DateTime.Now + "; Started"; //+ elapsedTime
+                _log = this.Name + ";" + DateTime.Now + "; Started";
             }
-            return log;
+            return _log;
         }
 
         private Stopwatch _stopwatch;
+        private string _log;
     }
 }
