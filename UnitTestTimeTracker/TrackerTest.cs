@@ -16,10 +16,10 @@ namespace UnitTestTimeTracker
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When
-            tracker.UpdatePressedButtons('1');
+            tracker.UpdatePressedButtonsMock('1');
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed());
+            Assert.AreEqual(true, buttons[0].IsPressed);
         }
 
         [TestMethod]
@@ -30,17 +30,17 @@ namespace UnitTestTimeTracker
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When
-            tracker.UpdatePressedButtons('1');
+            tracker.UpdatePressedButtonsMock('1');
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed());
+            Assert.AreEqual(true, buttons[0].IsPressed);
 
             //When
-            tracker.UpdatePressedButtons('2');
+            tracker.UpdatePressedButtonsMock('2');
 
             //Then
-            Assert.AreEqual(false, buttons[0].IsPressed());
-            Assert.AreEqual(true, buttons[1].IsPressed());
+            Assert.AreEqual(false, buttons[0].IsPressed);
+            Assert.AreEqual(true, buttons[1].IsPressed);
         }
         [TestMethod]
         public void TestPressThreeButtons()
@@ -50,24 +50,24 @@ namespace UnitTestTimeTracker
             TrackerMock tracker = new TrackerMock(buttons);
 
             //When
-            tracker.UpdatePressedButtons('1');
+            tracker.UpdatePressedButtonsMock('1');
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed());
+            Assert.AreEqual(true, buttons[0].IsPressed);
 
             //When
-            tracker.UpdatePressedButtons('2');
+            tracker.UpdatePressedButtonsMock('2');
 
             //Then
-            Assert.AreEqual(false, buttons[0].IsPressed());
-            Assert.AreEqual(true, buttons[1].IsPressed());
+            Assert.AreEqual(false, buttons[0].IsPressed);
+            Assert.AreEqual(true, buttons[1].IsPressed);
 
             //When
-            tracker.UpdatePressedButtons('3');
+            tracker.UpdatePressedButtonsMock('3');
 
             //Then
-            Assert.AreEqual(false, buttons[1].IsPressed());
-            Assert.AreEqual(true, buttons[2].IsPressed());
+            Assert.AreEqual(false, buttons[1].IsPressed);
+            Assert.AreEqual(true, buttons[2].IsPressed);
         }
     }
 }

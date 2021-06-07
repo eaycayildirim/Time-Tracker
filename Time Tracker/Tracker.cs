@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using nsButton;
+using nsCSV;
 
 namespace nsTracker
 {
@@ -14,7 +15,8 @@ namespace nsTracker
 
         public void Update()
         {
-            UpdatePressedButtons(SelectOption());
+            var selectedOption = SelectOption();
+            UpdatePressedButtons(selectedOption);
         }
 
         protected void UpdatePressedButtons(char selection)
@@ -22,7 +24,7 @@ namespace nsTracker
             int selectedOption = ParseCharToInteger(selection);
             for (int i = 0; i < _buttons.Count; i++)
             {
-                if(_buttons[i].IsPressed() && selectedOption != i)
+                if (_buttons[i].IsPressed && selectedOption != i)
                 {
                     _buttons[i].Press();
                 }

@@ -18,7 +18,7 @@ namespace UnitTestTimeTracker
             button.Press();
 
             //Then
-            Assert.AreEqual(true, button.IsPressed());
+            Assert.AreEqual(true, button.IsPressed);
         }
         [TestMethod]
         public void TestPressTheButtonTwice()
@@ -31,7 +31,7 @@ namespace UnitTestTimeTracker
             button.Press();
 
             //Then
-            Assert.AreEqual(false, button.IsPressed());
+            Assert.AreEqual(false, button.IsPressed);
         }
 
         [TestMethod]
@@ -45,12 +45,12 @@ namespace UnitTestTimeTracker
             button1.Press();
 
             //Then
-            Assert.AreEqual(true, button1.IsPressed());
+            Assert.AreEqual(true, button1.IsPressed);
 
             button2.Press();
 
             //Then
-            Assert.AreEqual(true, button2.IsPressed());
+            Assert.AreEqual(true, button2.IsPressed);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace nsTrackerMock
 
         //Not sure about this method.
 
-        public void UpdatePressedButtons(char selection) 
+        public void UpdatePressedButtonsMock(char selection) 
         {
             base.UpdatePressedButtons(selection);
         }
