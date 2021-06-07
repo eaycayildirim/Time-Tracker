@@ -45,11 +45,11 @@ namespace nsButton
         {
             if (!_stopwatch.IsRunning)
             {
-                _log = this.Name + ";" + DateTime.Now + " " + elapsedTime + "; Finished";
+                _log = this.Name + ";" + DateTime.Now + " " + elapsedTime + "; Finished" + "\n";
             }
             else
             {
-                _log = this.Name + ";" + DateTime.Now + "; Started";
+                _log = this.Name + ";" + DateTime.Now + "; Started" + "\n";
             }
             return _log;
         }
