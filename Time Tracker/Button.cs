@@ -38,7 +38,7 @@ namespace nsButton
             // This part shouldn't be here but where should it be?
             _log = ReturnTheLog(elapsedTime);
             CSV csv = new CSV();
-            csv.WriteLogsIntoCSV(_log);
+            csv.Write(_log);
         }
 
         public string ReturnTheLog(string elapsedTime)

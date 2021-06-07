@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using nsButton;
 using System.IO;
+using nsIDatabaseWrite;
 
 namespace nsCSV
 {
-    class CSV
+    class CSV : IDatabaseWrite
     {
         private List<string> list = new List<string>();
-        public void WriteLogsIntoCSV(string log)
+        public void Write(string data)
         {
             string filePath = "TimeTracker.csv";
             if (File.Exists(filePath))
@@ -18,7 +19,7 @@ namespace nsCSV
                 list = new List<string>(lines);
             }
 
-            list.Add(log);
+            list.Add(data);
             File.WriteAllLines(filePath, list);
 
         }
