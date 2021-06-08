@@ -14,12 +14,13 @@ namespace UnitTestTimeTracker
             //Given
             List<Button> buttons = new List<Button> { new Button() { Name = "Button1" } };
             TrackerMock tracker = new TrackerMock(buttons);
+            int selection = 0;
 
             //When
-            tracker.UpdatePressedButtonsMock('1');
+            tracker.UpdatePressedButtonsMock(selection);
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed);
+            Assert.AreEqual(true, buttons[selection].IsPressed);
         }
 
         [TestMethod]
@@ -28,19 +29,21 @@ namespace UnitTestTimeTracker
             //Given
             List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" } };
             TrackerMock tracker = new TrackerMock(buttons);
+            int firstSelection = 0;
+            int secondSelection = 1;
 
             //When
-            tracker.UpdatePressedButtonsMock('1');
+            tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed);
+            Assert.AreEqual(true, buttons[firstSelection].IsPressed);
 
             //When
-            tracker.UpdatePressedButtonsMock('2');
+            tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[0].IsPressed);
-            Assert.AreEqual(true, buttons[1].IsPressed);
+            Assert.AreEqual(false, buttons[firstSelection].IsPressed);
+            Assert.AreEqual(true, buttons[secondSelection].IsPressed);
         }
         [TestMethod]
         public void TestPressThreeButtons()
@@ -48,26 +51,29 @@ namespace UnitTestTimeTracker
             //Given
             List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" }, new Button() { Name = "Button3" } };
             TrackerMock tracker = new TrackerMock(buttons);
+            int firstSelection = 0;
+            int secondSelection = 1;
+            int thirdSelection = 2;
 
             //When
-            tracker.UpdatePressedButtonsMock('1');
+            tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.AreEqual(true, buttons[0].IsPressed);
+            Assert.AreEqual(true, buttons[firstSelection].IsPressed);
 
             //When
-            tracker.UpdatePressedButtonsMock('2');
+            tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[0].IsPressed);
-            Assert.AreEqual(true, buttons[1].IsPressed);
+            Assert.AreEqual(false, buttons[firstSelection].IsPressed);
+            Assert.AreEqual(true, buttons[secondSelection].IsPressed);
 
             //When
-            tracker.UpdatePressedButtonsMock('3');
+            tracker.UpdatePressedButtonsMock(thirdSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[1].IsPressed);
-            Assert.AreEqual(true, buttons[2].IsPressed);
+            Assert.AreEqual(false, buttons[secondSelection].IsPressed);
+            Assert.AreEqual(true, buttons[thirdSelection].IsPressed);
         }
     }
 }

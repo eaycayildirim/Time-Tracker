@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using nsButton;
-using nsCSV;
+using nsLog;
+using System.Diagnostics;
+using nsElapsedTime;
 
 namespace nsTracker
 {
@@ -11,30 +13,34 @@ namespace nsTracker
         public Tracker(List<Button>buttons)
         {
             this._buttons = buttons;
+            this._stopwatch = new Stopwatch();
+            this._log = new Log(_stopwatch);
+            this._elapsedTime = new ElapsedTime(_stopwatch);
         }
 
         public void Update()
         {
-            var selectedOption = SelectOption();
+            var selectedOption = ParseCharToInteger(SelectOption())-1;
             UpdatePressedButtons(selectedOption);
         }
 
-        protected void UpdatePressedButtons(char selection)
+        protected void UpdatePressedButtons(int selection)
         {
-            int selectedOption = ParseCharToInteger(selection);
             for (int i = 0; i < _buttons.Count; i++)
             {
-                if (_buttons[i].IsPressed && selectedOption != i)
+                if (_buttons[i].IsPressed && selection != i)
                 {
-                    _buttons[i].Press();
+                    _buttons[i].Press(_stopwatch);
+                    _log.WriteTheLog(_elapsedTime.ReturnElapsedTime(), _buttons[i].Name);
                 }
             }
-            _buttons[selectedOption].Press();
+            _buttons[selection].Press(_stopwatch);
+            _log.WriteTheLog(_elapsedTime.ReturnElapsedTime(), _buttons[selection].Name);
         }
 
         private int ParseCharToInteger(char selection)
         {
-            int selectedOption = Int16.Parse(selection.ToString()) - 1;
+            int selectedOption = Int16.Parse(selection.ToString());
             return selectedOption;
         }
         private char SelectOption()
@@ -49,5 +55,8 @@ namespace nsTracker
         }
 
         private List<Button> _buttons;
+        private Stopwatch _stopwatch;
+        private Log _log;
+        private ElapsedTime _elapsedTime;
     }
 }
