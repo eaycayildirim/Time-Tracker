@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
-using nsButton;
 using nsCSV;
+using nsElapsedTime;
 
 namespace nsLog
 {
@@ -14,18 +14,12 @@ namespace nsLog
             this._stopwatch = stopwatch;
         }
 
-        public void WriteTheLog(string elapsedTime, string name)
+        public string ReturnTheLog(string name)
         {
-            _log = ReturnTheLog(elapsedTime, name);
-            CSV csv = new CSV();
-            csv.Write(_log);
-        }
-
-        private string ReturnTheLog(string elapsedTime, string name)
-        {
+            ElapsedTime elapsedTime = new ElapsedTime(_stopwatch);
             if (!_stopwatch.IsRunning)
             {
-                return name + ";" + DateTime.Now + ";" + elapsedTime + "; Finished" + "\n";
+                return name + ";" + DateTime.Now + ";" + elapsedTime.ReturnElapsedTime() + "; Finished" + "\n";
             }
             else
             {
@@ -34,6 +28,5 @@ namespace nsLog
         }
 
         private Stopwatch _stopwatch;
-        private string _log;
     }
 }

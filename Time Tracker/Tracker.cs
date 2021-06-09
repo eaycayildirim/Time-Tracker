@@ -5,6 +5,7 @@ using nsButton;
 using nsLog;
 using System.Diagnostics;
 using nsElapsedTime;
+using nsCSV;
 
 namespace nsTracker
 {
@@ -15,7 +16,7 @@ namespace nsTracker
             this._buttons = buttons;
             this._stopwatch = new Stopwatch();
             this._log = new Log(_stopwatch);
-            this._elapsedTime = new ElapsedTime(_stopwatch);
+            this._csv = new CSV();
         }
 
         public void Update()
@@ -26,16 +27,19 @@ namespace nsTracker
 
         protected void UpdatePressedButtons(int selection)
         {
+            string log;
             for (int i = 0; i < _buttons.Count; i++)
             {
                 if (_buttons[i].IsPressed && selection != i)
                 {
                     _buttons[i].Press(_stopwatch);
-                    _log.WriteTheLog(_elapsedTime.ReturnElapsedTime(), _buttons[i].Name);
+                    log = _log.ReturnTheLog(_buttons[i].Name);
+                    _csv.Write(log);
                 }
             }
             _buttons[selection].Press(_stopwatch);
-            _log.WriteTheLog(_elapsedTime.ReturnElapsedTime(), _buttons[selection].Name);
+            log = _log.ReturnTheLog(_buttons[selection].Name);
+            _csv.Write(log);
         }
 
         private int ParseCharToInteger(char selection)
@@ -57,6 +61,6 @@ namespace nsTracker
         private List<Button> _buttons;
         private Stopwatch _stopwatch;
         private Log _log;
-        private ElapsedTime _elapsedTime;
+        private CSV _csv;
     }
 }
