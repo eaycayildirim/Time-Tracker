@@ -23,6 +23,7 @@ namespace TimeTrackerUI
         public MainWindow()
         {
             InitializeComponent();
+            CurrentTimeLabel.Content = DateTime.Now.ToString("MM/dd/yyyy HH:mm");
         }
     }
 }
