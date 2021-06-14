@@ -13,9 +13,7 @@ namespace nsTrackerMock
             this._buttons = buttons;
         }
 
-        //Not sure about this method.
-
-        public void UpdatePressedButtonsMock(char selection) 
+        public void UpdatePressedButtonsMock(int selection) 
         {
             base.UpdatePressedButtons(selection);
         }

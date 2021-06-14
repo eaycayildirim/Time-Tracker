@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsButton;
 using System.Collections.Generic;
-using nsTrackerMock;
+using System.Diagnostics;
 
 namespace UnitTestTimeTracker
 {
@@ -13,9 +13,10 @@ namespace UnitTestTimeTracker
         {
             //Given
             Button button = new Button();
+            Stopwatch stopwatch = new Stopwatch();
 
             //When
-            button.Press();
+            button.Press(stopwatch);
 
             //Then
             Assert.AreEqual(true, button.IsPressed);
@@ -25,10 +26,11 @@ namespace UnitTestTimeTracker
         {
             //Given
             Button button = new Button();
+            Stopwatch stopwatch = new Stopwatch();
 
             //When
-            button.Press();
-            button.Press();
+            button.Press(stopwatch);
+            button.Press(stopwatch);
 
             //Then
             Assert.AreEqual(false, button.IsPressed);
@@ -40,14 +42,15 @@ namespace UnitTestTimeTracker
             //Given
             Button button1 = new Button();
             Button button2 = new Button();
+            Stopwatch stopwatch = new Stopwatch();
 
             //When
-            button1.Press();
+            button1.Press(stopwatch);
 
             //Then
             Assert.AreEqual(true, button1.IsPressed);
 
-            button2.Press();
+            button2.Press(stopwatch);
 
             //Then
             Assert.AreEqual(true, button2.IsPressed);
