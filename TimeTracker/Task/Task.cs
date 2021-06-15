@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using nsElapsedTime;
 using nsButton;
 using nsLog;
+using System.Collections.Generic;
 
 namespace nsTask
 {
@@ -24,18 +23,20 @@ namespace nsTask
 
         public void Press()
         {
-            if (_button.IsPressed)
-            {
+            if (this._button.IsPressed)
+                this._elapsedTime.Stop();
+            else
+                this._elapsedTime.Start();
 
-            }
+            this._button.Press();
         }
 
-        public string GetStatus()
+        public List<string> GetStatus()
         {
-            if(_button.IsPressed)
-                return ";" + DateTime.Now + ";" + _elapsedTime.ReturnElapsedTime() + "; Finished" + "\n";
+            if (!_button.IsPressed)
+                return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), "Finished"};
             else
-                return ";" + DateTime.Now + "; Started" + "\n";
+                return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), "Started" };
         }
 
         public string Name { get; }

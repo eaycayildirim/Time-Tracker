@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using nsButton;
-using nsTaskTracker;
 using nsIDatabase;
 using nsCSV;
 using nsTask;
@@ -25,19 +22,16 @@ namespace nsTracker
 
         protected void UpdatePressedButtons(int selection)
         {
-            var status = "";
             for (int i = 0; i < _tasks.Count; i++)
             {
                 if(_tasks[i].IsRunning() && selection != i)
                 {
                     _tasks[i].Press();
-                    status = _tasks[i].GetStatus();
-                    _database.Write(status);
+                    _database.Write(_tasks[i].GetStatus());
                 }
-                _tasks[selection].Press();
-                status = _tasks[selection].GetStatus();
-                _database.Write(status);
             }
+            _tasks[selection].Press();
+            _database.Write(_tasks[selection].GetStatus());
         }
 
         private int ParseCharToInteger(char selection)
