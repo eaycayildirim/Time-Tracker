@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using nsButton;
 using nsTaskTracker;
+using nsIDatabase;
+using nsCSV;
+using nsTask;
 
 namespace nsTracker
 {
     public class Tracker
     {
-        public Tracker(List<Button>buttons)
+        public Tracker(List<Task>tasks)
         {
-            this._buttons = buttons;
-            this._tracker = new TaskTracker();
+            this._tasks = tasks;
+            this._database = new CSV();
         }
 
         public void Update()
@@ -22,7 +25,19 @@ namespace nsTracker
 
         protected void UpdatePressedButtons(int selection)
         {
-            _tracker.Track(_buttons, selection);
+            var status = "";
+            for (int i = 0; i < _tasks.Count; i++)
+            {
+                if(_tasks[i].IsRunning() && selection != i)
+                {
+                    _tasks[i].Press();
+                    status = _tasks[i].GetStatus();
+                    _database.Write(status);
+                }
+                _tasks[selection].Press();
+                status = _tasks[selection].GetStatus();
+                _database.Write(status);
+            }
         }
 
         private int ParseCharToInteger(char selection)
@@ -32,16 +47,16 @@ namespace nsTracker
         }
         private char SelectOption()
         {
-            for (int i = 0; i < _buttons.Count; i++)
+            for (int i = 0; i < _tasks.Count; i++)
             {
-                Console.WriteLine((i + 1) + ") " + _buttons[i].Name);
+                Console.WriteLine((i + 1) + ") " + _tasks[i].Name);
             }
             char selection = Console.ReadKey().KeyChar;
             Console.WriteLine();
             return selection;
         }
 
-        private List<Button> _buttons;
-        private TaskTracker _tracker;
+        private List<Task> _tasks;
+        private IDatabase _database;
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace nsIDatabaseWrite
 {
-    interface IDatabaseWrite
+    public interface IDatabaseWrite
     {
         void Write(string data);
     }

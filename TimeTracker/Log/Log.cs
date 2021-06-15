@@ -8,17 +8,9 @@ namespace nsLog
 {
     class Log
     {
-        public string ReturnTheLog(Stopwatch stopwatch)
+        public static void Write(string message)
         {
-            ElapsedTime elapsedTime = new ElapsedTime(stopwatch);
-            if (!stopwatch.IsRunning)
-            {
-                return ";" + DateTime.Now + ";" + elapsedTime.ReturnElapsedTime() + "; Finished" + "\n";
-            }
-            else
-            {
-                return ";" + DateTime.Now + "; Started" + "\n";
-            }
+            Console.WriteLine(message);
         }
     }
 }

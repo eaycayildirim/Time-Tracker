@@ -2,24 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using nsLog;
 
 namespace nsButton
 {
     public class Button
     {
-        public string Name { get; set; }
+        public Button()
+        {
+            Log.Write("The button is created.");
+        }
+
         public bool IsPressed { get; set; }
 
-        public void Press(Stopwatch _stopwatch)
+        public void Press()
         {
-            if (!this.IsPressed)
-            {
-                _stopwatch.Restart();
-            }
-            else
-            {
-                _stopwatch.Stop();
-            }
             IsPressed = !IsPressed;
         }
     }

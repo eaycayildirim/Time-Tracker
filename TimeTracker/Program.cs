@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using nsButton;
+using nsTask;
 using nsTracker;
-using nsCSV;
 
 namespace TimeTrackerMain
 {
@@ -10,8 +9,8 @@ namespace TimeTrackerMain
     {
         static void Main(string[] args)
         {
-            List<Button> buttons = new List<Button> { new Button() { Name = "Button 1" }, new Button() { Name = "Button 2" }, new Button() { Name = "Button 3" } };
-            Tracker tracker = new Tracker(buttons);
+            List<Task> tasks = new List<Task> { new Task("Button 1"), new Task("Button 2"), new Task("Button 3") };
+            Tracker tracker = new Tracker(tasks);
 
             tracker.Update();
             tracker.Update();

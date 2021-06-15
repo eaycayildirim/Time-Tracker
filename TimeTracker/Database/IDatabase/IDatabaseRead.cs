@@ -4,7 +4,7 @@ using System.Text;
 
 namespace nsIDatabaseRead
 {
-    interface IDatabaseRead
+    public interface IDatabaseRead
     {
         string Read();
     }
