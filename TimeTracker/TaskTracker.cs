@@ -4,7 +4,7 @@ using System.Text;
 using System.Diagnostics;
 using nsButton;
 using nsLog;
-using nsIDatabaseWrite;
+using nsIDatabase;
 using nsCSV;
 
 namespace nsTaskTracker
@@ -37,6 +37,6 @@ namespace nsTaskTracker
 
         private Stopwatch _stopwatch;
         private Log _log;
-        private IDatabaseWrite _database;
+        private IDatabase _database;
     }
 }
