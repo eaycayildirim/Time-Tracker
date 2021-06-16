@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using nsButton;
 using System.IO;
-using nsIDatabaseWrite;
+using nsIDatabase;
 
 namespace nsCSV
 {
-    class CSV : IDatabaseWrite
+    class CSV : IDatabase
     {
         public CSV()
         {
@@ -20,9 +20,24 @@ namespace nsCSV
 
         public void Write(string data)
         {
-            File.AppendAllText(_filePath, data);
+            File.AppendAllText(this._filePath, data);
+        }
+
+        public void Write(List<string> list)
+        {
+            foreach (var item in list)
+            {
+                Write(item + _seperator);
+            }
+            Write("\n");
+        }
+
+        public string Read()
+        {
+            return "";
         }
 
         private string _filePath;
+        private char _seperator = ';';
     }
 }

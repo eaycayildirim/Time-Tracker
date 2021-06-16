@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
+using nsLog;
 
 namespace nsElapsedTime
 {
     class ElapsedTime
     {
-        public ElapsedTime(Stopwatch stopwatch)
+        public ElapsedTime()
         {
-            this._stopwatch = stopwatch;
+            this._stopwatch = new Stopwatch();
+            Log.Write("The elapsed time is created.");
         }
         public string ReturnElapsedTime()
         {
@@ -18,6 +18,17 @@ namespace nsElapsedTime
 
             return elapsedTime;
         }
+
+        public void Start()
+        {
+            _stopwatch.Restart();
+        }
+
+        public void Stop()
+        {
+            _stopwatch.Stop();
+        }
+
         private Stopwatch _stopwatch;
     }
 }

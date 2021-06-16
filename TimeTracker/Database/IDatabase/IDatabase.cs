@@ -6,7 +6,7 @@ using nsIDatabaseWrite;
 
 namespace nsIDatabase
 {
-    interface IDatabase : IDatabaseRead, IDatabaseWrite
+    public interface IDatabase : IDatabaseRead, IDatabaseWrite
     {
     }
 }
