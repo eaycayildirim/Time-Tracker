@@ -16,7 +16,7 @@ namespace nsTracker
 
         public void Update()
         {
-            var selectedOption = ParseCharToInteger(SelectOption())-1;
+            var selectedOption = ConvertSelectedOptionToInteger(SelectOption())-1;
             UpdatePressedButtons(selectedOption);
         }
 
@@ -34,7 +34,7 @@ namespace nsTracker
             _database.Write(_tasks[selection].GetStatus());
         }
 
-        private int ParseCharToInteger(char selection)
+        private int ConvertSelectedOptionToInteger(char selection)
         {
             int selectedOption = Int16.Parse(selection.ToString());
             return selectedOption;
