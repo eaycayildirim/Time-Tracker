@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using nsButton;
+using nsTask;
 using System.Collections.Generic;
 using nsTrackerMock;
 
@@ -12,23 +12,23 @@ namespace UnitTestTimeTracker
         public void TestPressOneButton()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" } };
-            TrackerMock tracker = new TrackerMock(buttons);
+            List<Task> tasks = new List<Task> { new Task("Button1") } ;
+            TrackerMock tracker = new TrackerMock(tasks);
             int selection = 0;
 
             //When
             tracker.UpdatePressedButtonsMock(selection);
 
             //Then
-            Assert.AreEqual(true, buttons[selection].IsPressed);
+            Assert.IsTrue(tasks[selection].IsRunning());
         }
 
         [TestMethod]
         public void TestPressTwoButtons()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" } };
-            TrackerMock tracker = new TrackerMock(buttons);
+            List<Task> tasks = new List<Task> { new Task("Button1"), new Task("Button2") };
+            TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;
 
@@ -36,21 +36,21 @@ namespace UnitTestTimeTracker
             tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.AreEqual(true, buttons[firstSelection].IsPressed);
+            Assert.IsTrue(tasks[firstSelection].IsRunning());
 
             //When
             tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[firstSelection].IsPressed);
-            Assert.AreEqual(true, buttons[secondSelection].IsPressed);
+            Assert.IsFalse(tasks[firstSelection].IsRunning());
+            Assert.IsTrue(tasks[secondSelection].IsRunning());
         }
         [TestMethod]
         public void TestPressThreeButtons()
         {
             //Given
-            List<Button> buttons = new List<Button> { new Button() { Name = "Button1" }, new Button() { Name = "Button2" }, new Button() { Name = "Button3" } };
-            TrackerMock tracker = new TrackerMock(buttons);
+            List<Task> tasks = new List<Task> { new Task("Button1"), new Task("Button2"), new Task("Button3") };
+            TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;
             int thirdSelection = 2;
@@ -59,21 +59,21 @@ namespace UnitTestTimeTracker
             tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.AreEqual(true, buttons[firstSelection].IsPressed);
+            Assert.IsTrue(tasks[firstSelection].IsRunning());
 
             //When
             tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[firstSelection].IsPressed);
-            Assert.AreEqual(true, buttons[secondSelection].IsPressed);
+            Assert.IsFalse(tasks[firstSelection].IsRunning());
+            Assert.IsTrue(tasks[secondSelection].IsRunning());
 
             //When
             tracker.UpdatePressedButtonsMock(thirdSelection);
 
             //Then
-            Assert.AreEqual(false, buttons[secondSelection].IsPressed);
-            Assert.AreEqual(true, buttons[thirdSelection].IsPressed);
+            Assert.IsFalse(tasks[secondSelection].IsRunning());
+            Assert.IsTrue(tasks[thirdSelection].IsRunning());
         }
     }
 }

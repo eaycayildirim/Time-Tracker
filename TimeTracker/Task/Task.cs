@@ -33,10 +33,12 @@ namespace nsTask
 
         public List<string> GetStatus()
         {
-            if (!_button.IsPressed)
-                return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), "Finished"};
-            else
-                return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), "Started" };
+            return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), GetString() };
+        }
+
+        private string GetString()
+        {
+            return _button.IsPressed ? "Started" : "Finished";
         }
 
         public string Name { get; }

@@ -6,7 +6,7 @@ namespace nsLog
     {
         public static void Write(string message)
         {
-            Console.WriteLine("[" + DateTime.Now.ToString() + "]:" + message);
+            Console.WriteLine("[" + DateTime.Now.ToString() + "]: " + message);
         }
     }
 }
