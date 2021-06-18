@@ -4,7 +4,7 @@ using nsLog;
 
 namespace nsElapsedTime
 {
-    class ElapsedTime
+    public class ElapsedTime
     {
         public ElapsedTime()
         {

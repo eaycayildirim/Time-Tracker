@@ -12,7 +12,7 @@ namespace UnitTestTimeTracker
         public void TestPressOneButton()
         {
             //Given
-            List<Task> tasks = new List<Task> { new Task("Button1") } ;
+            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1") } ;
             TrackerMock tracker = new TrackerMock(tasks);
             int selection = 0;
 
@@ -27,7 +27,7 @@ namespace UnitTestTimeTracker
         public void TestPressTwoButtons()
         {
             //Given
-            List<Task> tasks = new List<Task> { new Task("Button1"), new Task("Button2") };
+            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1"), new Tasks("Button2") };
             TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;
@@ -49,7 +49,7 @@ namespace UnitTestTimeTracker
         public void TestPressThreeButtons()
         {
             //Given
-            List<Task> tasks = new List<Task> { new Task("Button1"), new Task("Button2"), new Task("Button3") };
+            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1"), new Tasks("Button2"), new Tasks("Button3") };
             TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;

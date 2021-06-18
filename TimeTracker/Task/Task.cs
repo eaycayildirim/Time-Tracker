@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace nsTask
 {
-    public class Task
+    public class Tasks
     {
-        public Task(string nameOfTheTask)
+        public Tasks(string nameOfTheTask)
         {
             this._button = new Button();
             this.Name = nameOfTheTask;

@@ -7,7 +7,7 @@ namespace nsTrackerMock
 {
     public class TrackerMock : Tracker 
     {
-        public TrackerMock(List<Task> tasks) : base(tasks) 
+        public TrackerMock(List<Tasks> tasks) : base(tasks) 
         {
             this._tasks = tasks;
         }
@@ -17,6 +17,6 @@ namespace nsTrackerMock
             base.UpdatePressedButtons(selection);
         }
 
-        private List<Task> _tasks;
+        private List<Tasks> _tasks;
     }
 }
