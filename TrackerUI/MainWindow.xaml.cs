@@ -30,6 +30,20 @@ namespace TrackerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            StartTimer();
+            LoadComboboxItems();
+        }
+
+        private void LoadComboboxItems()
+        {
+            foreach (var item in Properties.Settings.Default.Combobox)
+            {
+                SelectionCombobox.Items.Add(item);
+            }
+        }
+
+        private void StartTimer()
+        {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += new EventHandler(UpdateTimerTick);
@@ -43,20 +57,40 @@ namespace TrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            SelectionCombobox.Items.Add(AddTextBox.Text);
+            if(SelectionCombobox.Items.Contains(AddTextBox.Text))
+                MessageBox.Show("You can not add the same task twice.");
+            else
+            {
+                SelectionCombobox.Items.Add(AddTextBox.Text);
+                AddTextBox.Clear();
+                UpdatePropertiesSettings();
+            }
+
+        }
+        private void UpdatePropertiesSettings()
+        {
+            Properties.Settings.Default.Combobox.Clear();
+            foreach (var item in SelectionCombobox.Items)
+            {
+                Properties.Settings.Default.Combobox.Add(item.ToString());
+            }
+            Properties.Settings.Default.Save();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            SelectionCombobox.Items.RemoveAt(SelectionCombobox.Items.IndexOf(AddTextBox.Text));
+            SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
+            UpdatePropertiesSettings();
         }
 
         private List<Tasks> GetTasks()
         {
-            for (int i = 0; i < SelectionCombobox.Items.Count; i++)
+            for (int i = 0; i < Properties.Settings.Default.Combobox.Count; i++)
             {
-                var comboboxItem = SelectionCombobox.Items[i] as ComboBoxItem;
-                _tasks.Add(new Tasks(comboboxItem.Content.ToString()));
+                var comboboxItem = Properties.Settings.Default.Combobox[i];
+                var response = _tasks.Find(x => x.Name == comboboxItem);
+                if (response == null)
+                    _tasks.Add(new Tasks(comboboxItem.ToString()));
             }
             return _tasks;
         }
@@ -70,10 +104,12 @@ namespace TrackerUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GetTasks();
+            _tasks = GetTasks();
             Tracker tracker = new Tracker(_tasks);
             tracker.Update(GetSelection());
         }
 
+        //Check if you can add same task twice
+        //Finish the task when close the program
     }
 }
