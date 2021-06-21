@@ -114,12 +114,15 @@ namespace TrackerUI
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
             var fileToOpen = "TimeTracker.csv";
+            var process = new Process();
 
-            if(File.Exists(fileToOpen))
-                Process.Start(fileToOpen);
+            if (File.Exists(fileToOpen))
+            {
+                process.StartInfo = new ProcessStartInfo(fileToOpen) { UseShellExecute = true };
+                process.Start();
+            }
             else
                 MessageBox.Show("File not found.");
-
         }
 
         //Finish the task when close the program
