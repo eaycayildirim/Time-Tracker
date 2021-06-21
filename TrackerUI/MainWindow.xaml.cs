@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Diagnostics;
+using System.IO;
 using nsTracker;
 using nsTask;
 
@@ -65,8 +67,8 @@ namespace TrackerUI
                 AddTextBox.Clear();
                 UpdatePropertiesSettings();
             }
-
         }
+
         private void UpdatePropertiesSettings()
         {
             Properties.Settings.Default.Combobox.Clear();
@@ -109,7 +111,19 @@ namespace TrackerUI
             tracker.Update(GetSelection());
         }
 
-        //Check if you can add same task twice
+        private void CheckLogButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fileToOpen = "TimeTracker.csv";
+
+            if(File.Exists(fileToOpen))
+                Process.Start(fileToOpen);
+            else
+                MessageBox.Show("File not found.");
+
+        }
+
         //Finish the task when close the program
+        //Pause button
+        //All texts should be uppercase
     }
 }
