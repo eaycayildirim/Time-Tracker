@@ -40,7 +40,7 @@ namespace TrackerUI
         {
             foreach (var item in Properties.Settings.Default.Combobox)
             {
-                SelectionCombobox.Items.Add(item);
+                SelectionCombobox.Items.Add(item.ToUpper());
             }
         }
 
@@ -63,7 +63,7 @@ namespace TrackerUI
                 MessageBox.Show("You can not add the same task twice.");
             else
             {
-                SelectionCombobox.Items.Add(AddTextBox.Text);
+                SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
                 AddTextBox.Clear();
                 UpdatePropertiesSettings();
             }
@@ -74,7 +74,7 @@ namespace TrackerUI
             Properties.Settings.Default.Combobox.Clear();
             foreach (var item in SelectionCombobox.Items)
             {
-                Properties.Settings.Default.Combobox.Add(item.ToString());
+                Properties.Settings.Default.Combobox.Add(item.ToString().ToUpper());
             }
             Properties.Settings.Default.Save();
         }
@@ -92,7 +92,7 @@ namespace TrackerUI
                 var comboboxItem = Properties.Settings.Default.Combobox[i];
                 var response = _tasks.Find(x => x.Name == comboboxItem);
                 if (response == null)
-                    _tasks.Add(new Tasks(comboboxItem.ToString()));
+                    _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
             }
             return _tasks;
         }
@@ -127,6 +127,5 @@ namespace TrackerUI
 
         //Finish the task when close the program
         //Pause button
-        //All texts should be uppercase
     }
 }
