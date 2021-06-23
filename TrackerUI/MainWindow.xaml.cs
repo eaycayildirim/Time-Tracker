@@ -32,8 +32,11 @@ namespace TrackerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StartTimer();
+            ShowDateTime();
             LoadComboboxItems();
+
+            _tasks = GetTasks();
+            _tracker = new Tracker(_tasks);
         }
 
         private void LoadComboboxItems()
@@ -44,7 +47,7 @@ namespace TrackerUI
             }
         }
 
-        private void StartTimer()
+        private void ShowDateTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
@@ -59,7 +62,7 @@ namespace TrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectionCombobox.Items.Contains(AddTextBox.Text))
+            if(SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
                 MessageBox.Show("You can not add the same task twice.");
             else
             {
@@ -67,6 +70,7 @@ namespace TrackerUI
                 AddTextBox.Clear();
                 UpdatePropertiesSettings();
             }
+            UpdateTasks();
         }
 
         private void UpdatePropertiesSettings()
@@ -83,6 +87,7 @@ namespace TrackerUI
         {
             SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
             UpdatePropertiesSettings();
+            UpdateTasks();
         }
 
         private List<Tasks> GetTasks()
@@ -90,10 +95,15 @@ namespace TrackerUI
             for (int i = 0; i < Properties.Settings.Default.Combobox.Count; i++)
             {
                 var comboboxItem = Properties.Settings.Default.Combobox[i];
-                var response = _tasks.Find(x => x.Name == comboboxItem);
-                if (response == null)
-                    _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
+                _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
             }
+            return _tasks;
+        }
+
+        private List<Tasks> UpdateTasks()
+        {
+            _tasks.Clear();
+            GetTasks();
             return _tasks;
         }
 
@@ -103,12 +113,11 @@ namespace TrackerUI
         }
 
         private List<Tasks> _tasks = new List<Tasks>();
+        private Tracker _tracker;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _tasks = GetTasks();
-            Tracker tracker = new Tracker(_tasks);
-            tracker.Update(GetSelection());
+            _tracker.Update(GetSelection());
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
@@ -125,6 +134,8 @@ namespace TrackerUI
                 MessageBox.Show("File not found.");
         }
 
+        //A task must be selected to start
+        //Textbox can not be empty
         //Finish the task when close the program
         //Pause button
     }
