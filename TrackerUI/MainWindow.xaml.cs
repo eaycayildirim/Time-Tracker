@@ -62,15 +62,20 @@ namespace TrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
-                MessageBox.Show("You can not add the same task twice.");
+            if (string.IsNullOrEmpty(AddTextBox.Text))
+                MessageBox.Show("Please write something to add");
             else
             {
-                SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
-                AddTextBox.Clear();
-                UpdatePropertiesSettings();
+                if (SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
+                    MessageBox.Show("You can not add the same task twice.");
+                else
+                {
+                    SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
+                    AddTextBox.Clear();
+                    UpdatePropertiesSettings();
+                }
+                UpdateTasks();
             }
-            UpdateTasks();
         }
 
         private void UpdatePropertiesSettings()
@@ -117,12 +122,15 @@ namespace TrackerUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _tracker.Update(GetSelection());
+            if (SelectionCombobox.SelectedItem == null)
+                MessageBox.Show("Please select a task.");
+            else
+                _tracker.Update(GetSelection());
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
-            var fileToOpen = "TimeTracker.csv";
+            var fileToOpen = _tracker.GetFilePath();
             var process = new Process();
 
             if (File.Exists(fileToOpen))
@@ -134,9 +142,8 @@ namespace TrackerUI
                 MessageBox.Show("File not found.");
         }
 
-        //A task must be selected to start
-        //Textbox can not be empty
         //Finish the task when close the program
         //Pause button
+        //Make it SOLID
     }
 }

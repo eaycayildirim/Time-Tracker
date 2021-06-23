@@ -37,6 +37,11 @@ namespace nsCSV
             return "";
         }
 
+        public string GetFilePath()
+        {
+            return _filePath;
+        }
+
         private string _filePath;
         private char _seperator = ';';
     }

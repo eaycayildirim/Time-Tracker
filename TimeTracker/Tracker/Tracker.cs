@@ -19,6 +19,11 @@ namespace nsTracker
             UpdatePressedButtons(selection);
         }
 
+        public string GetFilePath()
+        {
+            return _database.GetFilePath();
+        }
+
         protected void UpdatePressedButtons(int selection)
         {
             for (int i = 0; i < _tasks.Count; i++)
