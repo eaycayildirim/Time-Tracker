@@ -18,7 +18,7 @@ using System.IO;
 using nsTracker;
 using nsTask;
 
-namespace TrackerUI
+namespace TimeTrackerUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
