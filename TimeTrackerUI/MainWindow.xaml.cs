@@ -62,20 +62,36 @@ namespace TimeTrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(AddTextBox.Text))
+            if (!IsTextValid())
                 MessageBox.Show("Please write something to add");
             else
             {
-                if (SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
+                if (TaskAlreadyExist())
                     MessageBox.Show("You can not add the same task twice.");
                 else
                 {
                     SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
-                    AddTextBox.Clear();
                     UpdatePropertiesSettings();
                 }
-                UpdateTasks();
+                UpdateTasks(AddTextBox.Text.ToUpper());
+                AddTextBox.Clear();
             }
+        }
+
+        private bool IsTextValid()
+        {
+            if (string.IsNullOrEmpty(AddTextBox.Text))
+                return false;
+            else
+                return true;
+        }
+
+        private bool TaskAlreadyExist()
+        {
+            if (SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
+                return true;
+            else
+                return false;
         }
 
         private void UpdatePropertiesSettings()
@@ -90,9 +106,9 @@ namespace TimeTrackerUI
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            UpdateTasks(SelectionCombobox.SelectedItem.ToString());
             SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
             UpdatePropertiesSettings();
-            UpdateTasks();
         }
 
         private List<Tasks> GetTasks()
@@ -105,11 +121,13 @@ namespace TimeTrackerUI
             return _tasks;
         }
 
-        private List<Tasks> UpdateTasks()
+        private void UpdateTasks(string taskName)
         {
-            _tasks.Clear();
-            GetTasks();
-            return _tasks;
+            var response = _tasks.Find(x => x.Name == taskName);
+            if (response == null)
+                _tasks.Add(new Tasks(taskName));
+            else
+                _tasks.Remove(response);
         }
 
         private int GetSelection()
