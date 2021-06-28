@@ -14,28 +14,23 @@ namespace nsTracker
             this._database = new CSV();
         }
 
-        public void Update(int selection)
-        {
-            UpdatePressedButtons(selection);
-        }
-
         public string GetFilePath()
         {
-            return _database.GetFilePath();
+            return _database.GetDatabaseFilePath();
         }
 
-        protected void UpdatePressedButtons(int selection)
+        public void UpdatePressedButtons(int selection)
         {
             for (int i = 0; i < _tasks.Count; i++)
             {
                 if(_tasks[i].IsRunning() && selection != i)
                 {
                     _tasks[i].Press();
-                    _database.Write(_tasks[i].GetStatus());
+                    _database.Write(_tasks[i].GetProperties());
                 }
             }
             _tasks[selection].Press();
-            _database.Write(_tasks[selection].GetStatus());
+            _database.Write(_tasks[selection].GetProperties());
         }
 
         private List<Tasks> _tasks;

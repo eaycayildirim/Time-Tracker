@@ -8,6 +8,6 @@ namespace nsIDatabase
 {
     public interface IDatabase : IDatabaseRead, IDatabaseWrite
     {
-        public string GetFilePath();
+        public string GetDatabaseFilePath();
     }
 }

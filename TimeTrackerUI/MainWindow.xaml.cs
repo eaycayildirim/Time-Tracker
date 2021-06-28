@@ -143,7 +143,7 @@ namespace TimeTrackerUI
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
-                _tracker.Update(GetSelection());
+                _tracker.UpdatePressedButtons(GetSelection());
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)

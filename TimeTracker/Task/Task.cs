@@ -31,12 +31,12 @@ namespace nsTask
             this._button.Press();
         }
 
-        public List<string> GetStatus()
+        public List<string> GetProperties()
         {
-            return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), GetString() };
+            return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), GetStatus() };
         }
 
-        private string GetString()
+        private string GetStatus()
         {
             return _button.IsPressed ? "Started" : "Finished";
         }

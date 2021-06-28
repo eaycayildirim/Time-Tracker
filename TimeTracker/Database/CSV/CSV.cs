@@ -37,7 +37,7 @@ namespace nsCSV
             return "";
         }
 
-        public string GetFilePath()
+        public string GetDatabaseFilePath()
         {
             return _filePath;
         }
