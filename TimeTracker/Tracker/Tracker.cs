@@ -33,6 +33,26 @@ namespace nsTracker
             _database.Write(_tasks[selection].GetProperties());
         }
 
+        public void AddTask(Tasks tasks)
+        {
+            _tasks.Add(tasks);
+        }
+
+        public void RemoveTask(Tasks tasks)
+        {
+            _tasks.Remove(tasks);
+        }
+
+        public void ClearTasks()
+        {
+            _tasks.Clear();
+        }
+
+        public List<Tasks> GetTasks()
+        {
+            return _tasks;
+        }
+
         private List<Tasks> _tasks;
         private IDatabase _database;
     }

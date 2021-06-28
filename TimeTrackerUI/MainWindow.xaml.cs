@@ -33,19 +33,18 @@ namespace TimeTrackerUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ShowDateTime();
-            LoadComboboxItems();
+            UpdateCombobox();
 
-            _tasks = GetTasks();
-            _tracker = new Tracker(_tasks);
+            UpdateTracker();
         }
 
-        private void LoadComboboxItems()
-        {
-            foreach (var item in Properties.Settings.Default.Combobox)
-            {
-                SelectionCombobox.Items.Add(item.ToUpper());
-            }
-        }
+        //private void LoadComboboxItems()
+        //{
+        //    foreach (var item in Properties.Settings.Default.Combobox)
+        //    {
+        //        SelectionCombobox.Items.Add(item.ToUpper());
+        //    }
+        //}
 
         private void ShowDateTime()
         {
@@ -62,88 +61,116 @@ namespace TimeTrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!IsTextValid())
-                MessageBox.Show("Please write something to add");
-            else
+            if (IsTextValid())
             {
-                if (TaskAlreadyExist())
-                    MessageBox.Show("You can not add the same task twice.");
-                else
-                {
-                    SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
-                    UpdatePropertiesSettings();
-                }
-                UpdateTasks(AddTextBox.Text.ToUpper());
-                AddTextBox.Clear();
+                _tracker.AddTask(new Tasks(AddTextBox.Text.ToUpper()));
             }
+
+            //if (IsTextNullOrEmpty())
+            //    MessageBox.Show("Please write something to add");
+            //else
+            //{
+            //    if (DoesTaskAlreadyExist())
+            //        MessageBox.Show("You can not add the same task twice.");
+            //    else
+            //    {
+            //        SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
+            //        UpdatePropertiesSettings();
+            //    }
+            //    UpdateTasks(AddTextBox.Text.ToUpper());
+            //    AddTextBox.Clear();
+            //}
         }
 
         private bool IsTextValid()
         {
-            if (string.IsNullOrEmpty(AddTextBox.Text))
-                return false;
-            else
-                return true;
+            return !IsTextNullOrEmpty() && !DoesTaskAlreadyExist() ? true : false;
         }
 
-        private bool TaskAlreadyExist()
+        private bool IsTextNullOrEmpty()
         {
-            if (SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()))
-                return true;
-            else
-                return false;
+            return string.IsNullOrEmpty(AddTextBox.Text) ? true : false;
+        }
+
+        private bool DoesTaskAlreadyExist()
+        {
+            return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()) ? true : false;
         }
 
         private void UpdatePropertiesSettings()
         {
             Properties.Settings.Default.Combobox.Clear();
-            foreach (var item in SelectionCombobox.Items)
+            foreach (var item in _tracker.GetTasks())
             {
                 Properties.Settings.Default.Combobox.Add(item.ToString().ToUpper());
             }
             Properties.Settings.Default.Save();
+
+            //foreach (var item in SelectionCombobox.Items)
+            //{
+            //    Properties.Settings.Default.Combobox.Add(item.ToString().ToUpper());
+            //}
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            UpdateTasks(SelectionCombobox.SelectedItem.ToString());
-            SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
-            UpdatePropertiesSettings();
+            Properties.Settings.Default.Combobox.Remove(SelectionCombobox.SelectedItem.ToString());
+            Properties.Settings.Default.Save();
+
+            //UpdateTasks(SelectionCombobox.SelectedItem.ToString());
+            //SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
+            //UpdatePropertiesSettings();
         }
 
-        private List<Tasks> GetTasks()
+        //private List<Tasks> GetTasks()
+        //{
+        //    foreach (var item in Properties.Settings.Default.Combobox)
+        //    {
+        //        _tracker.AddTask(new Tasks(item.ToString().ToUpper()));
+        //    }
+        //    return _tracker.GetTasks();
+        //    //for (int i = 0; i < Properties.Settings.Default.Combobox.Count; i++)
+        //    //{
+        //    //    var comboboxItem = Properties.Settings.Default.Combobox[i];
+        //    //    _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
+        //    //}
+        //}
+
+        private void UpdateTracker()
         {
-            for (int i = 0; i < Properties.Settings.Default.Combobox.Count; i++)
+            _tracker.ClearTasks();
+            foreach (var item in Properties.Settings.Default.Combobox)
             {
-                var comboboxItem = Properties.Settings.Default.Combobox[i];
-                _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
+                _tracker.AddTask(new Tasks(item));
             }
-            return _tasks;
+
+            //var response = _tasks.Find(x => x.Name == taskName);
+            //if (response == null)
+            //    _tasks.Add(new Tasks(taskName));
+            //else
+            //    _tasks.Remove(response);
         }
 
-        private void UpdateTasks(string taskName)
+        private void UpdateCombobox()
         {
-            var response = _tasks.Find(x => x.Name == taskName);
-            if (response == null)
-                _tasks.Add(new Tasks(taskName));
-            else
-                _tasks.Remove(response);
+            SelectionCombobox.Items.Clear();
+            foreach (var item in Properties.Settings.Default.Combobox)
+            {
+                SelectionCombobox.Items.Add(item);
+            }
         }
 
-        private int GetSelection()
+        private int GetSelectedIndex()
         {
             return SelectionCombobox.SelectedIndex;
         }
-
-        private List<Tasks> _tasks = new List<Tasks>();
-        private Tracker _tracker;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
-                _tracker.UpdatePressedButtons(GetSelection());
+                _tracker.UpdatePressedButtons(GetSelectedIndex());
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
@@ -159,6 +186,9 @@ namespace TimeTrackerUI
             else
                 MessageBox.Show("File not found.");
         }
+
+        private List<Tasks> _tasks = new List<Tasks>();
+        private Tracker _tracker;
 
         //Finish the task when close the program
         //Pause button
