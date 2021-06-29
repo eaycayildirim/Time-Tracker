@@ -33,18 +33,9 @@ namespace TimeTrackerUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ShowDateTime();
+            _tracker = new Tracker(GetTasks());
             UpdateCombobox();
-
-            UpdateTracker();
         }
-
-        //private void LoadComboboxItems()
-        //{
-        //    foreach (var item in Properties.Settings.Default.Combobox)
-        //    {
-        //        SelectionCombobox.Items.Add(item.ToUpper());
-        //    }
-        //}
 
         private void ShowDateTime()
         {
@@ -61,32 +52,17 @@ namespace TimeTrackerUI
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsTextValid())
+            if (!IsTextNullOrEmpty() && !DoesTaskAlreadyExist())
             {
-                _tracker.AddTask(new Tasks(AddTextBox.Text.ToUpper()));
+                Properties.Settings.Default.Combobox.Add(AddTextBox.Text.ToUpper());
+                Properties.Settings.Default.Save();
+                UpdateCombobox();
+                UpdateTracker(AddTextBox.Text.ToUpper());
             }
-
-            //if (IsTextNullOrEmpty())
-            //    MessageBox.Show("Please write something to add");
-            //else
-            //{
-            //    if (DoesTaskAlreadyExist())
-            //        MessageBox.Show("You can not add the same task twice.");
-            //    else
-            //    {
-            //        SelectionCombobox.Items.Add(AddTextBox.Text.ToUpper());
-            //        UpdatePropertiesSettings();
-            //    }
-            //    UpdateTasks(AddTextBox.Text.ToUpper());
-            //    AddTextBox.Clear();
-            //}
+            else
+                MessageBox.Show("Text is not valid.");
+            AddTextBox.Clear();
         }
-
-        private bool IsTextValid()
-        {
-            return !IsTextNullOrEmpty() && !DoesTaskAlreadyExist() ? true : false;
-        }
-
         private bool IsTextNullOrEmpty()
         {
             return string.IsNullOrEmpty(AddTextBox.Text) ? true : false;
@@ -97,58 +73,32 @@ namespace TimeTrackerUI
             return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()) ? true : false;
         }
 
-        private void UpdatePropertiesSettings()
-        {
-            Properties.Settings.Default.Combobox.Clear();
-            foreach (var item in _tracker.GetTasks())
-            {
-                Properties.Settings.Default.Combobox.Add(item.ToString().ToUpper());
-            }
-            Properties.Settings.Default.Save();
-
-            //foreach (var item in SelectionCombobox.Items)
-            //{
-            //    Properties.Settings.Default.Combobox.Add(item.ToString().ToUpper());
-            //}
-        }
-
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Combobox.Remove(SelectionCombobox.SelectedItem.ToString());
+            string selectedItem = SelectionCombobox.SelectedItem.ToString();
+            Properties.Settings.Default.Combobox.Remove(selectedItem);
             Properties.Settings.Default.Save();
-
-            //UpdateTasks(SelectionCombobox.SelectedItem.ToString());
-            //SelectionCombobox.Items.Remove(SelectionCombobox.SelectedItem);
-            //UpdatePropertiesSettings();
+            UpdateCombobox();
+            UpdateTracker(selectedItem);
         }
 
-        //private List<Tasks> GetTasks()
-        //{
-        //    foreach (var item in Properties.Settings.Default.Combobox)
-        //    {
-        //        _tracker.AddTask(new Tasks(item.ToString().ToUpper()));
-        //    }
-        //    return _tracker.GetTasks();
-        //    //for (int i = 0; i < Properties.Settings.Default.Combobox.Count; i++)
-        //    //{
-        //    //    var comboboxItem = Properties.Settings.Default.Combobox[i];
-        //    //    _tasks.Add(new Tasks(comboboxItem.ToString().ToUpper()));
-        //    //}
-        //}
-
-        private void UpdateTracker()
+        private List<Tasks> GetTasks()
         {
-            _tracker.ClearTasks();
+            List<Tasks> tasks = new List<Tasks>();
             foreach (var item in Properties.Settings.Default.Combobox)
             {
-                _tracker.AddTask(new Tasks(item));
+                tasks.Add(new Tasks(item));
             }
+            return tasks;
+        }
 
-            //var response = _tasks.Find(x => x.Name == taskName);
-            //if (response == null)
-            //    _tasks.Add(new Tasks(taskName));
-            //else
-            //    _tasks.Remove(response);
+        private void UpdateTracker(string taskName)
+        {
+            var response = _tracker.GetTasks().Find(x => x.Name == taskName);
+            if (response == null)
+                _tracker.AddTask(new Tasks(taskName));
+            else
+                _tracker.RemoveTask(response);
         }
 
         private void UpdateCombobox()
@@ -187,7 +137,6 @@ namespace TimeTrackerUI
                 MessageBox.Show("File not found.");
         }
 
-        private List<Tasks> _tasks = new List<Tasks>();
         private Tracker _tracker;
 
         //Finish the task when close the program
