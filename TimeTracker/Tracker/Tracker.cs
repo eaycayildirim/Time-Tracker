@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using nsIDatabase;
 using nsCSV;
-using nsTask;
+using nsTrackerTask;
 
 namespace nsTracker
 {
     public class Tracker
     {
-        public Tracker(List<Tasks>tasks)
+        public Tracker(List<TrackerTask>tasks)
         {
             this._tasks = tasks;
             this._database = new CSV();
@@ -33,14 +33,19 @@ namespace nsTracker
             _database.Write(_tasks[selection].GetProperties());
         }
 
-        public void AddTask(Tasks tasks)
+        public string GetElapsedTime(TrackerTask task)
         {
-            _tasks.Add(tasks);
+            return task.GetElapsedTime();
         }
 
-        public void RemoveTask(Tasks tasks)
+        public void AddTask(TrackerTask task)
         {
-            _tasks.Remove(tasks);
+            _tasks.Add(task);
+        }
+
+        public void RemoveTask(TrackerTask task)
+        {
+            _tasks.Remove(task);
         }
 
         public void ClearTasks()
@@ -48,12 +53,12 @@ namespace nsTracker
             _tasks.Clear();
         }
 
-        public List<Tasks> GetTasks()
+        public List<TrackerTask> GetTasks()
         {
             return _tasks;
         }
 
-        private List<Tasks> _tasks;
+        private List<TrackerTask> _tasks;
         private IDatabase _database;
     }
 }

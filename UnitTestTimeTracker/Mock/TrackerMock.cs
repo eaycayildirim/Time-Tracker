@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using nsTracker;
 using nsButton;
-using nsTask;
+using nsTrackerTask;
 
 namespace nsTrackerMock
 {
     public class TrackerMock : Tracker 
     {
-        public TrackerMock(List<Tasks> tasks) : base(tasks) 
+        public TrackerMock(List<TrackerTask> tasks) : base(tasks) 
         {
             this._tasks = tasks;
         }
@@ -17,6 +17,6 @@ namespace nsTrackerMock
             base.UpdatePressedButtons(selection);
         }
 
-        private List<Tasks> _tasks;
+        private List<TrackerTask> _tasks;
     }
 }

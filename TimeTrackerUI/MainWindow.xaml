@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Name="StartButton" Grid.Column="0" Content="START / STOP" Margin="10 0 10 0" FontWeight="Bold" FontSize="15" Click="Button_Click"/>
+                <Button Name="StartStopButton" Grid.Column="0" Content="START / STOP" Margin="10 0 10 0" FontWeight="Bold" FontSize="15" Click="StartStopButton_Click"/>
                 <Button Name="PauseButton" Grid.Column="1" Content="PAUSE" Margin="10 0 10 0" FontWeight="Bold" FontSize="15"/>
             </Grid>
             <Grid Margin="0 15 0 0">

@@ -4,11 +4,11 @@ using nsButton;
 using nsLog;
 using System.Collections.Generic;
 
-namespace nsTask
+namespace nsTrackerTask
 {
-    public class Tasks
+    public class TrackerTask
     {
-        public Tasks(string nameOfTheTask)
+        public TrackerTask(string nameOfTheTask)
         {
             this._button = new Button();
             this.Name = nameOfTheTask;
@@ -26,9 +26,14 @@ namespace nsTask
             if (this._button.IsPressed)
                 this._elapsedTime.Stop();
             else
-                this._elapsedTime.Start();
+                this._elapsedTime.Restart();
 
             this._button.Press();
+        }
+
+        public string GetElapsedTime()
+        {
+            return _elapsedTime.ReturnElapsedTime();
         }
 
         public List<string> GetProperties()

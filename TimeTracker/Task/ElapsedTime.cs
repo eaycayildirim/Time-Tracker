@@ -19,7 +19,7 @@ namespace nsElapsedTime
             return elapsedTime;
         }
 
-        public void Start()
+        public void Restart()
         {
             _stopwatch.Restart();
         }

@@ -16,7 +16,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using System.IO;
 using nsTracker;
-using nsTask;
+using nsTrackerTask;
 
 namespace TimeTrackerUI
 {
@@ -82,12 +82,12 @@ namespace TimeTrackerUI
             UpdateTracker(selectedItem);
         }
 
-        private List<Tasks> GetTasks()
+        private List<TrackerTask> GetTasks()
         {
-            List<Tasks> tasks = new List<Tasks>();
+            List<TrackerTask> tasks = new List<TrackerTask>();
             foreach (var item in Properties.Settings.Default.Combobox)
             {
-                tasks.Add(new Tasks(item));
+                tasks.Add(new TrackerTask(item));
             }
             return tasks;
         }
@@ -96,7 +96,7 @@ namespace TimeTrackerUI
         {
             var response = _tracker.GetTasks().Find(x => x.Name == taskName);
             if (response == null)
-                _tracker.AddTask(new Tasks(taskName));
+                _tracker.AddTask(new TrackerTask(taskName));
             else
                 _tracker.RemoveTask(response);
         }
@@ -115,13 +115,29 @@ namespace TimeTrackerUI
             return SelectionCombobox.SelectedIndex;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
+            {
                 _tracker.UpdatePressedButtons(GetSelectedIndex());
+                ShowElapsedTime();
+            }
         }
+        private void ShowElapsedTime()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += new EventHandler(UpdateElapsedTimeTick);
+            timer.Start();
+        }
+        private void UpdateElapsedTimeTick(object sender, EventArgs e) //if you change selected index its GG
+        {
+            int selectedIndex = GetSelectedIndex();
+            TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedIndex]);
+        }
+
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
@@ -139,6 +155,7 @@ namespace TimeTrackerUI
 
         private Tracker _tracker;
 
+        //Elapsed time is not showing
         //Finish the task when close the program
         //Pause button
         //Make it SOLID

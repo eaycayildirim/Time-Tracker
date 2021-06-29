@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using nsTask;
+using nsTrackerTask;
 using nsTracker;
 
 namespace TimeTrackerMain
@@ -8,7 +8,7 @@ namespace TimeTrackerMain
     {
         static void Main(string[] args)
         {
-            List<Tasks> tasks = new List<Tasks> { new Tasks("Button 1"), new Tasks("Button 2"), new Tasks("Button 3") };
+            List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button 1"), new TrackerTask("Button 2"), new TrackerTask("Button 3") };
             Tracker tracker = new Tracker(tasks);
 
             //tracker.Update();

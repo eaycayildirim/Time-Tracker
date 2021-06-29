@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using nsTask;
+using nsTrackerTask;
 using System.Collections.Generic;
 using nsTrackerMock;
 
@@ -12,7 +12,7 @@ namespace UnitTestTimeTracker
         public void TestPressOneButton()
         {
             //Given
-            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1") } ;
+            List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button1") } ;
             TrackerMock tracker = new TrackerMock(tasks);
             int selection = 0;
 
@@ -27,7 +27,7 @@ namespace UnitTestTimeTracker
         public void TestPressTwoButtons()
         {
             //Given
-            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1"), new Tasks("Button2") };
+            List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button1"), new TrackerTask("Button2") };
             TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;
@@ -49,7 +49,7 @@ namespace UnitTestTimeTracker
         public void TestPressThreeButtons()
         {
             //Given
-            List<Tasks> tasks = new List<Tasks> { new Tasks("Button1"), new Tasks("Button2"), new Tasks("Button3") };
+            List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button1"), new TrackerTask("Button2"), new TrackerTask("Button3") };
             TrackerMock tracker = new TrackerMock(tasks);
             int firstSelection = 0;
             int secondSelection = 1;
