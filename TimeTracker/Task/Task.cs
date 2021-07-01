@@ -23,7 +23,7 @@ namespace nsTrackerTask
 
         public bool IsPaused() //**
         {
-            return _elapsedTime.IsPaused() && _button.IsPressed ? true : false;
+            return !_elapsedTime.IsRunning() && _button.IsPressed ? true : false;
         }
 
         public void Press()
@@ -60,7 +60,7 @@ namespace nsTrackerTask
 
         private string GetStatus()
         {
-            if (_elapsedTime.IsPaused())
+            if (!_elapsedTime.IsRunning() && _button.IsPressed)
                 return "Paused";
             else if (_button.IsPressed)
                 return "Started";

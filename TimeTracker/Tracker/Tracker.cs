@@ -24,7 +24,6 @@ namespace nsTracker
             if (_tasks[selection].IsPaused())
             {
                 _tasks[selection].Pause();
-                
             }
             else
             {
