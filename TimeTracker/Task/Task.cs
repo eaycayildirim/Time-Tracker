@@ -21,6 +21,11 @@ namespace nsTrackerTask
             return this._button.IsPressed;
         }
 
+        public bool IsPaused() //**
+        {
+            return _elapsedTime.IsPaused() && _button.IsPressed ? true : false;
+        }
+
         public void Press()
         {
             if (this._button.IsPressed)
@@ -29,6 +34,18 @@ namespace nsTrackerTask
                 this._elapsedTime.Restart();
 
             this._button.Press();
+        }
+
+        public void Pause() //**
+        {
+            if (!IsPaused())
+                this._elapsedTime.Stop();
+            else
+            {
+                this._elapsedTime.Start();
+                this._button.Press();
+            }
+
         }
 
         public string GetElapsedTime()
@@ -43,7 +60,13 @@ namespace nsTrackerTask
 
         private string GetStatus()
         {
-            return _button.IsPressed ? "Started" : "Finished";
+            if (_elapsedTime.IsPaused())
+                return "Paused";
+            else if (_button.IsPressed)
+                return "Started";
+            else
+                return "Finished";
+            //return _button.IsPressed ? "Started" : "Finished";
         }
 
         public string Name { get; }

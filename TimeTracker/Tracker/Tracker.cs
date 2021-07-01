@@ -21,16 +21,44 @@ namespace nsTracker
 
         public void UpdatePressedButtons(int selection)
         {
-            for (int i = 0; i < _tasks.Count; i++)
+            if (_tasks[selection].IsPaused())
             {
-                if(_tasks[i].IsRunning() && selection != i)
-                {
-                    _tasks[i].Press();
-                    _database.Write(_tasks[i].GetProperties());
-                }
+                _tasks[selection].Pause();
+                
             }
-            _tasks[selection].Press();
-            _database.Write(_tasks[selection].GetProperties());
+            else
+            {
+                for (int i = 0; i < _tasks.Count; i++)
+                {
+                    if (_tasks[i].IsRunning() && selection != i)
+                    {
+                        _tasks[i].Press();
+                        _database.Write(_tasks[i].GetProperties());
+                    }
+                }
+                _tasks[selection].Press();
+                _database.Write(_tasks[selection].GetProperties());
+            }
+
+            //for (int i = 0; i < _tasks.Count; i++)
+            //{
+            //    if(_tasks[i].IsRunning() && selection != i)
+            //    {
+            //        _tasks[i].Press();
+            //        _database.Write(_tasks[i].GetProperties());
+            //    }
+            //}
+            //_tasks[selection].Press();
+            //_database.Write(_tasks[selection].GetProperties());
+        }
+
+        public void PauseTheTask(int selection) //**
+        {
+            if (_tasks[selection].IsRunning())
+            {
+                _tasks[selection].Pause();
+                _database.Write(_tasks[selection].GetProperties());
+            }
         }
 
         public string GetElapsedTime(TrackerTask task)

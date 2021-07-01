@@ -63,6 +63,7 @@ namespace TimeTrackerUI
                 MessageBox.Show("Text is not valid.");
             AddTextBox.Clear();
         }
+
         private bool IsTextNullOrEmpty()
         {
             return string.IsNullOrEmpty(AddTextBox.Text) ? true : false;
@@ -125,6 +126,18 @@ namespace TimeTrackerUI
                 ShowElapsedTime();
             }
         }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectionCombobox.SelectedItem == null)
+                MessageBox.Show("Please select a task.");
+            else
+            {
+                _tracker.PauseTheTask(GetSelectedIndex());
+                //ShowElapsedTime();
+            }
+        }
+
         private void ShowElapsedTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -132,12 +145,12 @@ namespace TimeTrackerUI
             timer.Tick += new EventHandler(UpdateElapsedTimeTick);
             timer.Start();
         }
+
         private void UpdateElapsedTimeTick(object sender, EventArgs e) //if you change selected index its GG
         {
             int selectedIndex = GetSelectedIndex();
             TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedIndex]);
         }
-
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
