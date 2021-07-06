@@ -16,6 +16,10 @@ namespace nsTrackerMock
         {
             base.UpdateTracker(selection);
         }
+        public void PauseTheTaskMock(int selection)
+        {
+            base.PauseTheTask(selection);
+        }
 
         private List<TrackerTask> _tasks;
     }
