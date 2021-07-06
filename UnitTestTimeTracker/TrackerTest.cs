@@ -20,7 +20,7 @@ namespace UnitTestTimeTracker
             tracker.UpdatePressedButtonsMock(selection);
 
             //Then
-            Assert.IsTrue(tasks[selection].IsRunning());
+            Assert.IsTrue(tasks[selection].IsPressed());
         }
 
         [TestMethod]
@@ -36,14 +36,14 @@ namespace UnitTestTimeTracker
             tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.IsTrue(tasks[firstSelection].IsRunning());
+            Assert.IsTrue(tasks[firstSelection].IsPressed());
 
             //When
             tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.IsFalse(tasks[firstSelection].IsRunning());
-            Assert.IsTrue(tasks[secondSelection].IsRunning());
+            Assert.IsFalse(tasks[firstSelection].IsPressed());
+            Assert.IsTrue(tasks[secondSelection].IsPressed());
         }
         [TestMethod]
         public void TestPressThreeButtons()
@@ -59,21 +59,21 @@ namespace UnitTestTimeTracker
             tracker.UpdatePressedButtonsMock(firstSelection);
 
             //Then
-            Assert.IsTrue(tasks[firstSelection].IsRunning());
+            Assert.IsTrue(tasks[firstSelection].IsPressed());
 
             //When
             tracker.UpdatePressedButtonsMock(secondSelection);
 
             //Then
-            Assert.IsFalse(tasks[firstSelection].IsRunning());
-            Assert.IsTrue(tasks[secondSelection].IsRunning());
+            Assert.IsFalse(tasks[firstSelection].IsPressed());
+            Assert.IsTrue(tasks[secondSelection].IsPressed());
 
             //When
             tracker.UpdatePressedButtonsMock(thirdSelection);
 
             //Then
-            Assert.IsFalse(tasks[secondSelection].IsRunning());
-            Assert.IsTrue(tasks[thirdSelection].IsRunning());
+            Assert.IsFalse(tasks[secondSelection].IsPressed());
+            Assert.IsTrue(tasks[thirdSelection].IsPressed());
         }
     }
 }

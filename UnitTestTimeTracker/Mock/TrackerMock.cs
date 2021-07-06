@@ -14,7 +14,7 @@ namespace nsTrackerMock
 
         public void UpdatePressedButtonsMock(int selection) 
         {
-            base.UpdatePressedButtons(selection);
+            base.UpdateTracker(selection);
         }
 
         private List<TrackerTask> _tasks;

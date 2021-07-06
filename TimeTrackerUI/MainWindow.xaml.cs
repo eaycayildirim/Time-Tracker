@@ -122,7 +122,7 @@ namespace TimeTrackerUI
                 MessageBox.Show("Please select a task.");
             else
             {
-                _tracker.UpdatePressedButtons(GetSelectedIndex());
+                _tracker.UpdateTracker(GetSelectedIndex());
                 ShowElapsedTime();
             }
         }
@@ -168,7 +168,6 @@ namespace TimeTrackerUI
 
         private Tracker _tracker;
 
-        //Elapsed time is not showing
         //Finish the task when close the program
         //Pause button
         //Make it SOLID

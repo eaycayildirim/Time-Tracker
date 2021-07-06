@@ -19,36 +19,16 @@ namespace nsTracker
             return _database.GetDatabaseFilePath();
         }
 
-        public void UpdatePressedButtons(int selection)
+        public void UpdateTracker(int selection)
         {
             if (_tasks[selection].IsPaused())
-            {
                 _tasks[selection].Pause();
-            }
             else
             {
-                for (int i = 0; i < _tasks.Count; i++)
-                {
-                    if (_tasks[i].IsRunning() && selection != i)
-                    {
-                        _tasks[i].Press();
-                        _database.Write(_tasks[i].GetProperties());
-                    }
-                }
+                UpdatePressedButtons(selection);
                 _tasks[selection].Press();
-                _database.Write(_tasks[selection].GetProperties());
             }
-
-            //for (int i = 0; i < _tasks.Count; i++)
-            //{
-            //    if(_tasks[i].IsRunning() && selection != i)
-            //    {
-            //        _tasks[i].Press();
-            //        _database.Write(_tasks[i].GetProperties());
-            //    }
-            //}
-            //_tasks[selection].Press();
-            //_database.Write(_tasks[selection].GetProperties());
+            _database.Write(_tasks[selection].GetProperties());
         }
 
         public void PauseTheTask(int selection) //**
@@ -83,6 +63,18 @@ namespace nsTracker
         public List<TrackerTask> GetTasks()
         {
             return _tasks;
+        }
+
+        private void UpdatePressedButtons(int selection)
+        {
+            for (int i = 0; i < _tasks.Count; i++)
+            {
+                if (_tasks[i].IsPressed() && selection != i)
+                {
+                    _tasks[i].Press();
+                    _database.Write(_tasks[i].GetProperties());
+                }
+            }
         }
 
         private List<TrackerTask> _tasks;
