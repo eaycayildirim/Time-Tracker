@@ -31,7 +31,7 @@ namespace nsTracker
             _database.Write(_tasks[selection].GetProperties());
         }
 
-        public void PauseTheTask(int selection) //**
+        public void PauseTheTask(int selection)
         {
             if (_tasks[selection].IsRunning())
             {

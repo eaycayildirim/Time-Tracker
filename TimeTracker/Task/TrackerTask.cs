@@ -26,14 +26,14 @@ namespace nsTrackerTask
             return _elapsedTime.IsRunning() ? true : false;
         }
 
-        public bool IsPaused() //**
+        public bool IsPaused()
         {
             return !IsRunning() && IsPressed() ? true : false;
         }
 
         public void Press()
         {
-            if (this._button.IsPressed)
+            if (IsPressed())
                 this._elapsedTime.Stop();
             else
                 this._elapsedTime.Restart();
@@ -41,7 +41,7 @@ namespace nsTrackerTask
             this._button.Press();
         }
 
-        public void Pause() //**
+        public void Pause()
         {
             if (IsPaused())         //im using IsPaused() twice
                 this._elapsedTime.Start();
@@ -56,7 +56,7 @@ namespace nsTrackerTask
 
         public List<string> GetProperties()
         {
-            return new List<string> { this.Name, DateTime.Now.ToString(), _elapsedTime.ReturnElapsedTime(), GetStatus() };
+            return new List<string> { this.Name, DateTime.Now.ToString(), GetElapsedTime(), GetStatus() };
         }
 
         private string GetStatus()

@@ -132,10 +132,7 @@ namespace TimeTrackerUI
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
-            {
                 _tracker.PauseTheTask(GetSelectedIndex());
-                //ShowElapsedTime();
-            }
         }
 
         private void ShowElapsedTime()
@@ -169,7 +166,6 @@ namespace TimeTrackerUI
         private Tracker _tracker;
 
         //Finish the task when close the program
-        //Pause button
         //Make it SOLID
     }
 }

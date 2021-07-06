@@ -19,12 +19,12 @@ namespace nsElapsedTime
             return elapsedTime;
         }
 
-        public bool IsRunning() //**
+        public bool IsRunning()
         {
             return _stopwatch.IsRunning ? true : false;
         }
 
-        public void Start() //**
+        public void Start()
         {
             _stopwatch.Start();
         }
