@@ -6,9 +6,9 @@ using nsTrackerMock;
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class PauseButtonTest
+    public class TestPauseButton
     {
-        public PauseButtonTest()
+        public TestPauseButton()
         {
             _tasks = new List<TrackerTask> { new TrackerTask("Button1"), new TrackerTask("Button2"), new TrackerTask("Button3") };
             _tracker = new TrackerMock(_tasks);
