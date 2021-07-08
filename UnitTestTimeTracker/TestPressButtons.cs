@@ -21,7 +21,7 @@ namespace UnitTestTimeTracker
             int selection = 0;
 
             //When
-            _tracker.UpdatePressedButtonsMock(selection);
+            _tracker.UpdateTrackerMock(selection);
 
             //Then
             Assert.IsTrue(_tasks[selection].IsPressed());
@@ -36,14 +36,14 @@ namespace UnitTestTimeTracker
             int secondSelection = 1;
 
             //When
-            _tracker.UpdatePressedButtonsMock(firstSelection);
+            _tracker.UpdateTrackerMock(firstSelection);
 
             //Then
             Assert.IsTrue(_tasks[firstSelection].IsPressed());
             Assert.IsTrue(_tasks[firstSelection].IsRunning());
 
             //When
-            _tracker.UpdatePressedButtonsMock(secondSelection);
+            _tracker.UpdateTrackerMock(secondSelection);
 
             //Then
             Assert.IsFalse(_tasks[firstSelection].IsPressed());
@@ -60,14 +60,14 @@ namespace UnitTestTimeTracker
             int thirdSelection = 2;
 
             //When
-            _tracker.UpdatePressedButtonsMock(firstSelection);
+            _tracker.UpdateTrackerMock(firstSelection);
 
             //Then
             Assert.IsTrue(_tasks[firstSelection].IsPressed());
             Assert.IsTrue(_tasks[firstSelection].IsRunning());
 
             //When
-            _tracker.UpdatePressedButtonsMock(secondSelection);
+            _tracker.UpdateTrackerMock(secondSelection);
 
             //Then
             Assert.IsFalse(_tasks[firstSelection].IsPressed());
@@ -76,7 +76,7 @@ namespace UnitTestTimeTracker
             Assert.IsTrue(_tasks[secondSelection].IsRunning());
 
             //When
-            _tracker.UpdatePressedButtonsMock(thirdSelection);
+            _tracker.UpdateTrackerMock(thirdSelection);
 
             //Then
             Assert.IsFalse(_tasks[secondSelection].IsPressed());

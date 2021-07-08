@@ -5,20 +5,20 @@ using nsTrackerTask;
 
 namespace nsTrackerMock
 {
-    public class TrackerMock : Tracker 
+    public class TrackerMock : Tracker
     {
-        public TrackerMock(List<TrackerTask> tasks) : base(tasks) 
+        public TrackerMock(List<TrackerTask> tasks) : base(tasks)
         {
             this._tasks = tasks;
         }
 
-        public void UpdatePressedButtonsMock(int selection) 
+        public void UpdateTrackerMock(int selection)
         {
-            base.UpdateTracker(selection);
+            UpdateTracker(selection);
         }
         public void PauseTheTaskMock(int selection)
         {
-            base.PauseTheTask(selection);
+            PauseTheTask(selection);
         }
 
         private List<TrackerTask> _tasks;

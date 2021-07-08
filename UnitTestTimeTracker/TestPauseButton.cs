@@ -21,7 +21,7 @@ namespace UnitTestTimeTracker
             int selection = 0;
 
             //When
-            _tracker.UpdatePressedButtonsMock(selection);
+            _tracker.UpdateTrackerMock(selection);
             _tracker.PauseTheTask(selection);
 
             //Then
