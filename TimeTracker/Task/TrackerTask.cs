@@ -23,12 +23,12 @@ namespace nsTrackerTask
 
         public bool IsRunning()
         {
-            return _elapsedTime.IsRunning() ? true : false;
+            return _elapsedTime.IsRunning();
         }
 
         public bool IsPaused()
         {
-            return !IsRunning() && IsPressed() ? true : false;
+            return !IsRunning() && IsPressed();
         }
 
         public void Press()
@@ -43,7 +43,7 @@ namespace nsTrackerTask
 
         public void Pause()
         {
-            if (IsPaused())         //im using IsPaused() twice
+            if (IsPaused())
                 this._elapsedTime.Start();
             else
                 this._elapsedTime.Stop();

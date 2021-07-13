@@ -8,13 +8,8 @@ namespace TimeTrackerMain
     {
         static void Main(string[] args)
         {
-            List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button 1"), new TrackerTask("Button 2"), new TrackerTask("Button 3") };
-            Tracker tracker = new Tracker(tasks);
-
-            //tracker.Update();
-            //tracker.Update();
-            //tracker.Update();
-            //tracker.Update();
+            //List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button 1"), new TrackerTask("Button 2"), new TrackerTask("Button 3") };
+            //Tracker tracker = new Tracker(tasks);
         }
     }
 }

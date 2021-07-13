@@ -116,14 +116,44 @@ namespace TimeTrackerUI
             return SelectionCombobox.SelectedIndex;
         }
 
+        private void EnableDisableFunctions(bool toggle) //**
+        {
+            AddButton.IsEnabled = toggle;
+            DeleteButton.IsEnabled = toggle;
+            AddTextBox.IsEnabled = toggle;
+        }
+
+        private bool IsButtonStarted(int index) //**
+        {
+            return _tracker.IsTaskRunning(index);
+        }
+
+        private void UpdateUI(int index) //** You can add new tasks when the task paused
+        {
+            if (IsButtonStarted(index))
+            {
+                EnableDisableFunctions(false);
+                StartStopButton.Content = "STOP";
+            }
+            else
+            {
+                EnableDisableFunctions(true);
+                StartStopButton.Content = "START";
+            }
+        }
+
         private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
             {
-                _tracker.UpdateTracker(GetSelectedIndex());
+                var index = GetSelectedIndex();
+                _tracker.UpdateTracker(index);
                 ShowElapsedTime();
+
+                //**
+                UpdateUI(index);
             }
         }
 
@@ -132,7 +162,13 @@ namespace TimeTrackerUI
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
-                _tracker.PauseTheTask(GetSelectedIndex());
+            {
+                var index = GetSelectedIndex();
+                _tracker.PauseTheTask(index);
+
+                //**
+                UpdateUI(index);
+            }
         }
 
         private void ShowElapsedTime()
@@ -143,7 +179,7 @@ namespace TimeTrackerUI
             timer.Start();
         }
 
-        private void UpdateElapsedTimeTick(object sender, EventArgs e) //if you change selected index its GG
+        private void UpdateElapsedTimeTick(object sender, EventArgs e)
         {
             int selectedIndex = GetSelectedIndex();
             TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedIndex]);
