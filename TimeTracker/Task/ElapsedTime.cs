@@ -4,7 +4,7 @@ using nsLog;
 
 namespace nsElapsedTime
 {
-    class ElapsedTime
+    public class ElapsedTime
     {
         public ElapsedTime()
         {
@@ -14,12 +14,20 @@ namespace nsElapsedTime
         public string ReturnElapsedTime()
         {
             TimeSpan ts = _stopwatch.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
+            return String.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
+        }
 
-            return elapsedTime;
+        public bool IsRunning()
+        {
+            return _stopwatch.IsRunning ? true : false;
         }
 
         public void Start()
+        {
+            _stopwatch.Start();
+        }
+
+        public void Restart()
         {
             _stopwatch.Restart();
         }

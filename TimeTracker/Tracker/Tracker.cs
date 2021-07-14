@@ -2,55 +2,87 @@
 using System.Collections.Generic;
 using nsIDatabase;
 using nsCSV;
-using nsTask;
+using nsTrackerTask;
 
 namespace nsTracker
 {
     public class Tracker
     {
-        public Tracker(List<Task>tasks)
+        public Tracker(List<TrackerTask>tasks)
         {
             this._tasks = tasks;
             this._database = new CSV();
         }
 
-        public void Update()
+        public string GetFilePath()
         {
-            var selectedOption = ParseCharToInteger(SelectOption())-1;
-            UpdatePressedButtons(selectedOption);
+            return _database.GetDatabaseFilePath();
         }
 
-        protected void UpdatePressedButtons(int selection)
+        public void UpdateTracker(int selection)
+        {
+            if (_tasks[selection].IsPaused())
+                _tasks[selection].Pause();
+            else
+            {
+                UpdatePressedButtons(selection);
+                _tasks[selection].Press();
+            }
+            _database.Write(_tasks[selection].GetProperties());
+        }
+
+        public void PauseTheTask(int selection)
+        {
+            if (_tasks[selection].IsRunning())
+            {
+                _tasks[selection].Pause();
+                _database.Write(_tasks[selection].GetProperties());
+            }
+        }
+
+        public bool IsTaskRunning(int index) //**
+        {
+            return _tasks[index].IsPressed();
+        }
+
+        public string GetElapsedTime(TrackerTask task)
+        {
+            return task.GetElapsedTime();
+        }
+
+        public void AddTask(TrackerTask task)
+        {
+            _tasks.Add(task);
+        }
+
+        public void RemoveTask(TrackerTask task)
+        {
+            _tasks.Remove(task);
+        }
+
+        public void ClearTasks()
+        {
+            _tasks.Clear();
+        }
+
+        public List<TrackerTask> GetTasks()
+        {
+            return _tasks;
+        }
+
+        private void UpdatePressedButtons(int selection)
         {
             for (int i = 0; i < _tasks.Count; i++)
             {
-                if(_tasks[i].IsRunning() && selection != i)
+                if (_tasks[i].IsPressed() && selection != i)
                 {
                     _tasks[i].Press();
-                    _database.Write(_tasks[i].GetStatus());
+                    _database.Write(_tasks[i].GetProperties());
                 }
             }
-            _tasks[selection].Press();
-            _database.Write(_tasks[selection].GetStatus());
         }
 
-        private int ParseCharToInteger(char selection)
-        {
-            int selectedOption = Int16.Parse(selection.ToString());
-            return selectedOption;
-        }
-        private char SelectOption()
-        {
-            for (int i = 0; i < _tasks.Count; i++)
-            {
-                Console.WriteLine((i + 1) + ") " + _tasks[i].Name);
-            }
-            char selection = Console.ReadKey().KeyChar;
-            Console.WriteLine();
-            return selection;
-        }
-
-        private List<Task> _tasks;
+        private List<TrackerTask> _tasks;
         private IDatabase _database;
     }
 }
