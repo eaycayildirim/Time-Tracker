@@ -32,22 +32,14 @@ namespace TimeTrackerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ShowDateTime();
             _tracker = new Tracker(GetTasks());
             UpdateCombobox();
+            PauseButton.IsEnabled = false;
         }
 
-        private void ShowDateTime()
+        private void ShowTaskDetails(int index) //**
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 1);
-            timer.Tick += new EventHandler(UpdateTimerTick);
-            timer.Start();
-        }
-
-        private void UpdateTimerTick(object sender, EventArgs e)
-        {
-            CurrentTimeLabel.Content = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            CurrentTimeLabel.Content = _tracker.GetTasks()[index].Name + " Started " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -134,6 +126,7 @@ namespace TimeTrackerUI
             {
                 EnableDisableFunctions(false);
                 StartStopButton.Content = "STOP";
+                ShowTaskDetails(index);      // not working after pause
             }
             else
             {
@@ -144,6 +137,7 @@ namespace TimeTrackerUI
 
         private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
+            PauseButton.IsEnabled = true;
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else
@@ -159,6 +153,7 @@ namespace TimeTrackerUI
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
+            PauseButton.IsEnabled = false;
             if (SelectionCombobox.SelectedItem == null)
                 MessageBox.Show("Please select a task.");
             else

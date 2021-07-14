@@ -42,6 +42,21 @@ namespace nsCSV
             return _filePath;
         }
 
+        public bool IsFileLocked() //**
+        {
+            bool blnReturn = false;
+            try
+            {
+                FileStream fs = File.Open(_filePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
+                fs.Close();
+            }
+            catch (IOException ex)
+            {
+                blnReturn = true;
+            }
+            return blnReturn;
+        }
+
         private string _filePath;
         private char _seperator = ';';
     }

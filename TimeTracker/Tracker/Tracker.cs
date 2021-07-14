@@ -42,7 +42,7 @@ namespace nsTracker
 
         public bool IsTaskRunning(int index) //**
         {
-            return _tasks[index].IsPressed() ? true : false;
+            return _tasks[index].IsPressed();
         }
 
         public string GetElapsedTime(TrackerTask task)
