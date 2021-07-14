@@ -123,14 +123,14 @@ namespace TimeTrackerUI
             AddTextBox.IsEnabled = toggle;
         }
 
-        private bool IsButtonStarted(int index) //**
+        private bool IsTaskRunning(int index) //**
         {
             return _tracker.IsTaskRunning(index);
         }
 
-        private void UpdateUI(int index) //** You can add new tasks when the task paused
+        private void UpdateUI(int index) //**
         {
-            if (IsButtonStarted(index))
+            if (IsTaskRunning(index))
             {
                 EnableDisableFunctions(false);
                 StartStopButton.Content = "STOP";
@@ -168,6 +168,7 @@ namespace TimeTrackerUI
 
                 //**
                 UpdateUI(index);
+                StartStopButton.Content = "CONTINUE";
             }
         }
 
@@ -199,9 +200,11 @@ namespace TimeTrackerUI
                 MessageBox.Show("File not found.");
         }
 
-        private Tracker _tracker;
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) //**
+        {
 
-        //Finish the task when close the program
-        //Make it SOLID
+        }
+
+        private Tracker _tracker;
     }
 }
