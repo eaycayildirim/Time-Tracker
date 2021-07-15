@@ -7,20 +7,20 @@ namespace nsTrackerMock
 {
     public class TrackerMock : Tracker
     {
-        public TrackerMock(List<TrackerTask> tasks) : base(tasks)
+        public TrackerMock(Dictionary<string, TrackerTask> tasks) : base(tasks)
         {
             this._tasks = tasks;
         }
 
-        public void UpdateTrackerMock(int selection)
+        public void UpdateTrackerMock(string selection)
         {
             UpdateTracker(selection);
         }
-        public void PauseTheTaskMock(int selection)
+        public void PauseTheTaskMock(string selection)
         {
             PauseTheTask(selection);
         }
 
-        private List<TrackerTask> _tasks;
+        private Dictionary<string, TrackerTask> _tasks;
     }
 }

@@ -10,7 +10,7 @@ namespace UnitTestTimeTracker
     {
         public TestTracker()
         {
-            _tasks = new List<TrackerTask> { new TrackerTask("Button1"), new TrackerTask("Button2"), new TrackerTask("Button3") };
+            _tasks = new Dictionary<string, TrackerTask> { { "STUDY", new TrackerTask("STUDY") }, { "PLAY", new TrackerTask("PLAY") }, { "EAT", new TrackerTask("EAT") } };
             _tracker = new Tracker(_tasks);
         }
 
@@ -18,7 +18,7 @@ namespace UnitTestTimeTracker
         public void TestStartThePausedTask()
         {
             //Given
-            int selection = 0;
+            string selection = "STUDY";
 
             //When
             _tracker.UpdateTracker(selection);
@@ -34,8 +34,8 @@ namespace UnitTestTimeTracker
         public void TestStartTaskWithoutFinishThePausedOne()
         {
             //Given
-            int firstSelection = 0;
-            int secondSelection = 1;
+            string firstSelection = "STUDY";
+            string secondSelection = "PLAY";
 
             //When
             _tracker.UpdateTracker(firstSelection);
@@ -49,7 +49,7 @@ namespace UnitTestTimeTracker
             Assert.IsTrue(_tasks[secondSelection].IsRunning());
         }
 
-        private List<TrackerTask> _tasks;
+        private Dictionary<string, TrackerTask> _tasks;
         private Tracker _tracker;
     }
 }

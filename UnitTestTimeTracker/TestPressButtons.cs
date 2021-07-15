@@ -10,7 +10,7 @@ namespace UnitTestTimeTracker
     {
         public TestPressButtons()
         {
-            _tasks = new List<TrackerTask> { new TrackerTask("Button1"), new TrackerTask("Button2"), new TrackerTask("Button3") };
+            _tasks = new Dictionary<string, TrackerTask> { { "STUDY", new TrackerTask("STUDY") }, { "PLAY", new TrackerTask("PLAY") }, { "EAT", new TrackerTask("EAT") } };
             _tracker = new TrackerMock(_tasks);
         }
 
@@ -18,7 +18,7 @@ namespace UnitTestTimeTracker
         public void TestPressOneButton()
         {
             //Given
-            int selection = 0;
+            string selection = "STUDY";
 
             //When
             _tracker.UpdateTrackerMock(selection);
@@ -32,8 +32,8 @@ namespace UnitTestTimeTracker
         public void TestPressTwoButtons()
         {
             //Given
-            int firstSelection = 0;
-            int secondSelection = 1;
+            string firstSelection = "STUDY";
+            string secondSelection = "PLAY";
 
             //When
             _tracker.UpdateTrackerMock(firstSelection);
@@ -55,9 +55,9 @@ namespace UnitTestTimeTracker
         public void TestPressThreeButtons()
         {
             //Given
-            int firstSelection = 0;
-            int secondSelection = 1;
-            int thirdSelection = 2;
+            string firstSelection = "STUDY";
+            string secondSelection = "PLAY";
+            string thirdSelection = "EAT";
 
             //When
             _tracker.UpdateTrackerMock(firstSelection);
@@ -85,7 +85,7 @@ namespace UnitTestTimeTracker
             Assert.IsTrue(_tasks[thirdSelection].IsRunning());
         }
 
-        private List<TrackerTask> _tasks;
+        private Dictionary<string, TrackerTask> _tasks;
         private TrackerMock _tracker;
     }
 }

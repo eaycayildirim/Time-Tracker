@@ -37,7 +37,7 @@ namespace TimeTrackerUI
             PauseButton.IsEnabled = false;
         }
 
-        private void ShowTaskDetails(int index) //**
+        private void ShowTaskDetails(string index) //**
         {
             CurrentTimeLabel.Content = _tracker.GetTasks()[index].Name + " Started " + DateTime.Now.ToString("HH:mm:ss");
         }
@@ -75,23 +75,22 @@ namespace TimeTrackerUI
             UpdateTracker(selectedItem);
         }
 
-        private List<TrackerTask> GetTasks()
+        private Dictionary<string, TrackerTask> GetTasks()
         {
-            List<TrackerTask> tasks = new List<TrackerTask>();
+            Dictionary<string, TrackerTask> tasks = new Dictionary<string, TrackerTask>();
             foreach (var item in Properties.Settings.Default.Combobox)
             {
-                tasks.Add(new TrackerTask(item));
+                tasks.Add(item, new TrackerTask(item));
             }
             return tasks;
         }
 
-        private void UpdateTracker(string taskName)
+        private void UpdateTracker(string task) //**
         {
-            var response = _tracker.GetTasks().Find(x => x.Name == taskName);
-            if (response == null)
-                _tracker.AddTask(new TrackerTask(taskName));
+            if(_tracker.GetTasks().ContainsKey(task))
+                _tracker.RemoveTask(task);
             else
-                _tracker.RemoveTask(response);
+                _tracker.AddTask(task);
         }
 
         private void UpdateCombobox()
@@ -103,9 +102,9 @@ namespace TimeTrackerUI
             }
         }
 
-        private int GetSelectedIndex()
+        private string GetSelectedItem()
         {
-            return SelectionCombobox.SelectedIndex;
+            return SelectionCombobox.SelectedItem.ToString();
         }
 
         private void EnableDisableFunctions(bool toggle) //**
@@ -115,12 +114,12 @@ namespace TimeTrackerUI
             AddTextBox.IsEnabled = toggle;
         }
 
-        private bool IsTaskRunning(int index) //**
+        private bool IsTaskRunning(string index) //**
         {
             return _tracker.IsTaskRunning(index);
         }
 
-        private void UpdateUI(int index) //**
+        private void UpdateUI(string index) //**
         {
             if (IsTaskRunning(index))
             {
@@ -142,12 +141,12 @@ namespace TimeTrackerUI
                 MessageBox.Show("Please select a task.");
             else
             {
-                var index = GetSelectedIndex();
-                _tracker.UpdateTracker(index);
+                var selection = GetSelectedItem();
+                _tracker.UpdateTracker(selection);
                 ShowElapsedTime();
 
                 //**
-                UpdateUI(index);
+                UpdateUI(selection);
             }
         }
 
@@ -158,11 +157,11 @@ namespace TimeTrackerUI
                 MessageBox.Show("Please select a task.");
             else
             {
-                var index = GetSelectedIndex();
-                _tracker.PauseTheTask(index);
+                var selection = GetSelectedItem();
+                _tracker.PauseTheTask(selection);
 
                 //**
-                UpdateUI(index);
+                UpdateUI(selection);
                 StartStopButton.Content = "CONTINUE";
             }
         }
@@ -177,8 +176,8 @@ namespace TimeTrackerUI
 
         private void UpdateElapsedTimeTick(object sender, EventArgs e)
         {
-            int selectedIndex = GetSelectedIndex();
-            TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedIndex]);
+            string selection = GetSelectedItem();
+            TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selection]);
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
