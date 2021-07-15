@@ -33,13 +33,13 @@ namespace TimeTrackerUI
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _tracker = new Tracker(GetTasks());
-            UpdateCombobox();
+            LoadCombobox();
             PauseButton.IsEnabled = false;
         }
 
-        private void ShowTaskDetails(string index) //**
+        private void ShowTaskDetails(string selection) //**
         {
-            CurrentTimeLabel.Content = _tracker.GetTasks()[index].Name + " Started " + DateTime.Now.ToString("HH:mm:ss");
+            CurrentTimeLabel.Content = _tracker.GetTasks()[selection].Name + " Started " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +48,7 @@ namespace TimeTrackerUI
             {
                 Properties.Settings.Default.Combobox.Add(AddTextBox.Text.ToUpper());
                 Properties.Settings.Default.Save();
-                UpdateCombobox();
+                UpdateCombobox(AddTextBox.Text.ToUpper());     //**
                 UpdateTracker(AddTextBox.Text.ToUpper());
             }
             else
@@ -68,10 +68,10 @@ namespace TimeTrackerUI
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            string selectedItem = SelectionCombobox.SelectedItem.ToString();
+            string selectedItem = GetSelectedItem();
             Properties.Settings.Default.Combobox.Remove(selectedItem);
             Properties.Settings.Default.Save();
-            UpdateCombobox();
+            UpdateCombobox(selectedItem);       //**
             UpdateTracker(selectedItem);
         }
 
@@ -93,7 +93,15 @@ namespace TimeTrackerUI
                 _tracker.AddTask(task);
         }
 
-        private void UpdateCombobox()
+        private void UpdateCombobox(string task)
+        {
+            if (SelectionCombobox.Items.Contains(task))
+                SelectionCombobox.Items.Remove(task);
+            else
+                SelectionCombobox.Items.Add(task);
+        }
+
+        private void LoadCombobox()
         {
             SelectionCombobox.Items.Clear();
             foreach (var item in Properties.Settings.Default.Combobox)
@@ -114,22 +122,22 @@ namespace TimeTrackerUI
             AddTextBox.IsEnabled = toggle;
         }
 
-        private bool IsTaskRunning(string index) //**
+        private bool IsTaskRunning(string selection) //**
         {
-            return _tracker.IsTaskRunning(index);
+            return _tracker.IsTaskRunning(selection);
         }
 
-        private void UpdateUI(string index) //**
+        private void UpdateUI(string selection) //**
         {
-            if (IsTaskRunning(index))
+            if (IsTaskRunning(selection))
             {
-                EnableDisableFunctions(false);
+                //EnableDisableFunctions(false);
                 StartStopButton.Content = "STOP";
-                ShowTaskDetails(index);      // not working after pause
+                ShowTaskDetails(selection);      // not working after pause
             }
             else
             {
-                EnableDisableFunctions(true);
+                //EnableDisableFunctions(true);
                 StartStopButton.Content = "START";
             }
         }
