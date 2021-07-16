@@ -7,7 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="add--button.png" />
+    <None Remove="add-button.png" />
+    <None Remove="delete--button.png" />
+    <None Remove="delete-button.png" />
+    <None Remove="glossy-play-button.png" />
+    <None Remove="menu_button.png" />
+    <None Remove="pause-button.png" />
+    <None Remove="play-button-icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TimeTracker\TimeTracker.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="add--button.png" />
+    <Resource Include="add-button.png" />
+    <Resource Include="delete--button.png" />
+    <Resource Include="delete-button.png" />
+    <Resource Include="glossy-play-button.png" />
+    <Resource Include="menu_button.png" />
+    <Resource Include="pause-button.png" />
+    <Resource Include="play-button-icon.png" />
   </ItemGroup>
 
   <ItemGroup>

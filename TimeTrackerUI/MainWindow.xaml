@@ -5,45 +5,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="350" Width="550" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="320" Width="400" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
-            <Grid Background="LemonChiffon">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
-                <Label Name="TimerLabel" Content="00:00:00" HorizontalAlignment="Center" Foreground="Black" FontSize="60"/>
+                <Label Name="TimerLabel" Content="00:00:00" Background="LemonChiffon" Grid.Column="0" Foreground="Black" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Name="StartStopButton" Grid.Column="1" Width="50" Height="50" Click="StartStopButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/glossy-play-button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button Name="PauseButton" Grid.Column="2" Width="50" Height="50" Click="PauseButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/pause-button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Name="SelectionCombobox" Margin="10 20 0 0" Grid.Column="0"></ComboBox>
-                <TextBox Name="AddTextBox" Margin="10 20 0 0" Grid.Column="1"/>
-                <Button Name="AddButton" Content="ADD" Grid.Column="2" Margin="10 20 10 0" Click="AddButton_Click"/>
-                <Button Name="DeleteButton" Content="DELETE" Grid.Column="3" Margin="0 20 10 0" Click="DeleteButton_Click"/>
+                <ComboBox Name="SelectionCombobox" Margin="10 20 0 0" Grid.Column="0"/>
+                <Button Name="DeleteButton" Grid.Column="1" Width="50" Height="50" Click="DeleteButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/delete--button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
-            <Grid Margin="0 20 0 0" Height="50">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-                <Button Name="StartStopButton" Grid.Column="0" Content="START" Margin="10 0 10 0" FontWeight="Bold" FontSize="15" Click="StartStopButton_Click"/>
-                <Button Name="PauseButton" Grid.Column="1" Content="PAUSE" Margin="10 0 10 0" FontWeight="Bold" FontSize="15" Click="PauseButton_Click"/>
+                <TextBox Name="AddTextBox" Margin="10 20 0 0" Grid.Column="0"/>
+                <Button Name="AddButton" Grid.Column="1" Width="50" Height="50" Click="AddButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/add--button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
             <Grid Margin="0 15 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Label Name="CurrentTimeLabel" FontSize="35" HorizontalAlignment="Center" Grid.Column="0"/>
-                <Button Name="CheckLogButton" Content="Check Logs" FontSize="15" Margin="10 10 10 10" Grid.Column="1" Click="CheckLogButton_Click"/>
+                <Button Name="CheckLogButton" Grid.Column="1" Width="50" Height="50" Click="CheckLogButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/menu_button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </Grid>
         </StackPanel>
     </Border>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsTrackerTask;
 using System.Collections.Generic;
-using nsTrackerMock;
+using nsTracker;
 
 namespace UnitTestTimeTracker
 {
@@ -11,7 +11,7 @@ namespace UnitTestTimeTracker
         public TrackerTest()
         {
             _tasks = new Dictionary<string, TrackerTask> { { "STUDY", new TrackerTask("STUDY") }, { "PLAY", new TrackerTask("PLAY") }, { "EAT", new TrackerTask("EAT") } };
-            _tracker = new TrackerMock(_tasks);
+            _tracker = new Tracker(_tasks);
         }
 
         [TestMethod]
@@ -43,6 +43,6 @@ namespace UnitTestTimeTracker
         }
 
         private Dictionary<string, TrackerTask> _tasks;
-        private TrackerMock _tracker;
+        private Tracker _tracker;
     }
 }
