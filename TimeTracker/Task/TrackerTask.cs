@@ -54,12 +54,12 @@ namespace nsTrackerTask
             return _elapsedTime.ReturnElapsedTime();
         }
 
-        public List<string> GetProperties()
+        public virtual List<string> GetProperties()
         {
             return new List<string> { this.Name, DateTime.Now.ToString(), GetElapsedTime(), GetStatus() };
         }
 
-        private string GetStatus()
+        protected string GetStatus()
         {
             if (IsPaused())
                 return "Paused";

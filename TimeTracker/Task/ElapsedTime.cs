@@ -11,6 +11,7 @@ namespace nsElapsedTime
             this._stopwatch = new Stopwatch();
             Log.Write("The elapsed time is created.");
         }
+
         public string ReturnElapsedTime()
         {
             TimeSpan ts = _stopwatch.Elapsed;
@@ -19,7 +20,7 @@ namespace nsElapsedTime
 
         public bool IsRunning()
         {
-            return _stopwatch.IsRunning ? true : false;
+            return _stopwatch.IsRunning;
         }
 
         public void Start()
