@@ -10,6 +10,8 @@ namespace TimeTrackerMain
         {
             //List<TrackerTask> tasks = new List<TrackerTask> { new TrackerTask("Button 1"), new TrackerTask("Button 2"), new TrackerTask("Button 3") };
             //Tracker tracker = new Tracker(tasks);
+
+            //Application.Run();
         }
     }
 }

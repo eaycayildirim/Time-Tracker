@@ -5,30 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="320" Width="350" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="240" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="70"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="TimerLabel" Content="00:00:00" Background="LemonChiffon" Grid.Column="0" Foreground="Black" FontSize="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Name="TimerLabel" Content="00:00:00" Background="LemonChiffon" Grid.Column="0" Foreground="Black" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Border>
                 <Button Name="StartStopButton" Grid.Column="1" Click="StartStopButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="45" Height="45" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.BitmapEffect>
                                     <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                                 </Ellipse.BitmapEffect>
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/play.png" />
+                                    <ImageBrush ImageSource="/Resources/Icons/play.png" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>
@@ -37,9 +37,9 @@
                 <Button Name="PauseButton" Grid.Column="2" Click="PauseButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="45" Height="45" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/pause.png" />
+                                    <ImageBrush ImageSource="/Resources/Icons/pause.png" />
                                 </Ellipse.Fill>
                                 <Ellipse.BitmapEffect>
                                     <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
@@ -51,16 +51,53 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Name="SelectionCombobox" Margin="10 10 10 10" Grid.Column="0" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <ComboBox Name="SelectionCombobox" Height="25" Grid.Column="0" />
                 <Button Name="DeleteButton" Grid.Column="1" Click="DeleteButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="45" Height="45" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/delete-button.png" />
+                                    <ImageBrush ImageSource="/Resources/Icons/delete-button.png" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <TextBox Name="AddTextBox" Height="25" Grid.Column="0"/>
+                <Button Name="AddButton" Grid.Column="1" Click="AddButton_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Resources/Icons/add-button.png" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>
@@ -69,39 +106,21 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Name="AddTextBox" Margin="10 10 10 10" Grid.Column="0"/>
-                <Button Name="AddButton" Grid.Column="1" Click="AddButton_Click">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="45" Height="45" Stroke="Black" StrokeThickness="1">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/add--button.png" />
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-            </Grid>
-            <Grid Margin="0 15 0 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="CurrentTimeLabel" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
+                    <Label Name="CurrentTimeLabel" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
                 </Border>
                 <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="45" Height="45" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/menu_button.png" />
+                                    <ImageBrush ImageSource="/Resources/Icons/menu_button.png" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>
