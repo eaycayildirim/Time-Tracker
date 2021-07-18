@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="240" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="240" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
             <Grid>
@@ -18,7 +18,7 @@
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="TimerLabel" Content="00:00:00" Background="LemonChiffon" Grid.Column="0" Foreground="Black" FontSize="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Name="TimerLabel" Content="00:00:00" Grid.Column="0" Foreground="Black" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 </Border>
                 <Button Name="StartStopButton" Grid.Column="1" Click="StartStopButton_Click">
                     <Button.Template>
@@ -113,7 +113,7 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="CurrentTimeLabel" FontSize="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
+                    <Label Name="CurrentTimeLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
                 </Border>
                 <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click">
                     <Button.Template>
