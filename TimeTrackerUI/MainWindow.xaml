@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="240" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="250" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="70"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="TimerLabel" Content="00:00:00" Grid.Column="0" Foreground="Black" FontSize="35" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                    <Label Name="TimerLabel" Content="00:00:00" Grid.Column="0" Foreground="Black" FontSize="35" HorizontalContentAlignment="Center"/>
                 </Border>
                 <Button Name="StartStopButton" Grid.Column="1" Click="StartStopButton_Click">
                     <Button.Template>
@@ -110,10 +110,10 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Border BorderThickness="2" BorderBrush="Black">
-                    <Label Name="CurrentTimeLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
+                <Border BorderThickness="2" Height="40" BorderBrush="Black">
+                    <Label Name="TaskDetailsLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
                 </Border>
                 <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click">
                     <Button.Template>
