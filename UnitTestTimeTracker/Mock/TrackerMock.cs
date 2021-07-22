@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using nsTracker;
-using nsButton;
 using nsTrackerTask;
 
 namespace nsTrackerMock
@@ -12,13 +11,9 @@ namespace nsTrackerMock
             this._tasks = tasks;
         }
 
-        public void UpdateTrackerMock(string selection)
+        public void UpdatePressedButtonsMock(string selection)
         {
-            UpdateTracker(selection);
-        }
-        public void PauseTheTaskMock(string selection)
-        {
-            PauseTheTask(selection);
+            UpdatePressedButtons(selection);
         }
 
         private Dictionary<string, TrackerTask> _tasks;

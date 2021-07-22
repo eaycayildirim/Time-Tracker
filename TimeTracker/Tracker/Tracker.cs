@@ -70,7 +70,7 @@ namespace nsTracker
             return _tasks;
         }
 
-        private void UpdatePressedButtons(string selection)
+        protected void UpdatePressedButtons(string selection)
         {
             foreach (var item in _tasks)
             {
