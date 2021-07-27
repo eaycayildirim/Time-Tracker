@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsTrackerTask;
 using nsTrackerTaskMock;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace UnitTestTimeTracker
 {
@@ -10,10 +10,10 @@ namespace UnitTestTimeTracker
     public class TrackerTaskTest
     {
         [TestMethod]
-        public void Press_TaskIsStarted_True()
+        public void Press_TaskIsStarted()
         {
             //Given
-            TrackerTask trackerTask = new TrackerTask("EAT");
+            TrackerTask trackerTask = new TrackerTask("TEST");
 
             //When
             trackerTask.Press();
@@ -24,10 +24,10 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void Press_TaskIsStopped_True()
+        public void Press_TaskIsStopped()
         {
             //Given
-            TrackerTask trackerTask = new TrackerTask("EAT");
+            TrackerTask trackerTask = new TrackerTask("TEST");
 
             //When
             trackerTask.Press();
@@ -39,25 +39,24 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void Pause_TaskIsPaused_True()
+        public void Pause_TaskIsPaused()
         {
             //Given
-            TrackerTask trackerTask = new TrackerTask("EAT");
+            TrackerTask trackerTask = new TrackerTask("TEST");
 
             //When
             trackerTask.Press();
             trackerTask.Pause();
 
             //Then
-            Assert.IsTrue(trackerTask.IsPressed());
-            Assert.IsFalse(trackerTask.IsRunning());
+            Assert.IsTrue(trackerTask.IsPaused());
         }
 
         [TestMethod]
-        public void Pause_PausedTaskContinues_True()
+        public void Pause_PausedTaskContinues()
         {
             //Given
-            TrackerTask trackerTask = new TrackerTask("EAT");
+            TrackerTask trackerTask = new TrackerTask("TEST");
 
             //When
             trackerTask.Press();
@@ -70,28 +69,68 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void IsPaused_TaskIsPaused_True()
+        public void GetProperties_AfterOneSecond_Started()
         {
             //Given
-            TrackerTask trackerTask = new TrackerTask("EAT");
+            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            var miliseconds = 1000;
+            List<string> expected = new List<string> { "TEST", "00:00:01", "Started" };
 
             //When
             trackerTask.Press();
-            trackerTask.Pause();
+            Thread.Sleep(miliseconds);
 
             //Then
-            Assert.AreEqual(true, trackerTask.IsPaused());
+            CollectionAssert.AreEquivalent(expected, trackerTask.GetProperties());
         }
 
         [TestMethod]
-        public void TestGetProperties()     //**??
+        public void GetProperties_AfterThreeSeconds_Stopped()
         {
             //Given
-            TrackerTaskMock trackerTask = new TrackerTaskMock("EAT");
-            List<string> expected = new List<string> { "EAT", "00:00:00", "Started" };
+            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            var miliseconds = 3000;
+            List<string> expected = new List<string> { "TEST", "00:00:03", "Finished" };
 
             //When
             trackerTask.Press();
+            Thread.Sleep(miliseconds);
+            trackerTask.Press();
+
+            //Then
+            CollectionAssert.AreEquivalent(expected, trackerTask.GetProperties());
+        }
+
+        [TestMethod]
+        public void GetProperties_AfterOneSecond_Paused()
+        {
+            //Given
+            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            var miliseconds = 1000;
+            List<string> expected = new List<string> { "TEST", "00:00:01", "Paused" };
+
+            //When
+            trackerTask.Press();
+            Thread.Sleep(miliseconds);
+            trackerTask.Pause();
+
+            //Then
+            CollectionAssert.AreEquivalent(expected, trackerTask.GetProperties());
+        }
+
+        [TestMethod]
+        public void GetProperties_AfterTwoSeconds_Continues()
+        {
+            //Given
+            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            var miliseconds = 2000;
+            List<string> expected = new List<string> { "TEST", "00:00:02", "Started" };
+
+            //When
+            trackerTask.Press();
+            Thread.Sleep(miliseconds);
+            trackerTask.Pause();
+            trackerTask.Pause();
 
             //Then
             CollectionAssert.AreEquivalent(expected, trackerTask.GetProperties());

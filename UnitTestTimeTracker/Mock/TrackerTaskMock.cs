@@ -9,14 +9,13 @@ namespace nsTrackerTaskMock
     {
         public TrackerTaskMock(string task) : base(task)
         {
+
         }
+
         public override List<string> GetProperties()
         {
-            return new List<string> { this.Name, GetElapsedTime(), GetStatusMock() };
-        }
-        public string GetStatusMock()
-        {
-            return GetStatus();
+            var list = base.GetProperties();
+            return new List<string> { list[0], list[2], list[3] };
         }
     }
 }
