@@ -8,14 +8,11 @@ namespace nsTrackerMock
     {
         public TrackerMock(Dictionary<string, TrackerTask> tasks) : base(tasks)
         {
-            this._tasks = tasks;
         }
 
         public void UpdatePressedButtonsMock(string selection)
         {
             UpdatePressedButtons(selection);
         }
-
-        private Dictionary<string, TrackerTask> _tasks;
     }
 }

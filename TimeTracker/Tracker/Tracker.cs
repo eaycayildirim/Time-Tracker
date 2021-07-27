@@ -22,7 +22,7 @@ namespace nsTracker
         public void UpdateTracker(string selection)
         {
             if (_tasks[selection].IsPaused())
-                _tasks[selection].Pause();
+                _tasks[selection].Continue();
             else
             {
                 UpdatePressedButtons(selection);

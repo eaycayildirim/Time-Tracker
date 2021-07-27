@@ -130,7 +130,11 @@ namespace TimeTrackerUI
         {
             if (IsTaskRunning(selection))
             {
-                //StartStopButton.Content = new BitmapImage(new Uri("/Resources/Icons/menu_button.png", UriKind.Relative));
+                //StartStopButton.Content = new Image
+                //{
+                //    Source = new BitmapImage(new Uri("/Resources/Icons/stop.png", UriKind.Relative))
+                //};
+                
                 ShowTaskDetails(selection);
             }
             else

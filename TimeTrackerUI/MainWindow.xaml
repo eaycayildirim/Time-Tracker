@@ -8,22 +8,19 @@
         Title="Time Tracker" Height="250" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
-            <Grid>
+            <Grid UseLayoutRounding="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
                 <Border BorderThickness="2" BorderBrush="Black">
                     <Label Name="TimerLabel" Content="00:00:00" Grid.Column="0" Foreground="Black" FontSize="35" HorizontalContentAlignment="Center"/>
                 </Border>
                 <Button Name="StartStopButton" Grid.Column="1" Click="StartStopButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black">
                                 <Ellipse.BitmapEffect>
                                     <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                                 </Ellipse.BitmapEffect>
@@ -33,11 +30,24 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
                 <Button Name="PauseButton" Grid.Column="2" Click="PauseButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Icons/pause.png" />
                                 </Ellipse.Fill>
@@ -47,6 +57,19 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
             <Grid>
@@ -61,7 +84,7 @@
                 <Button Name="DeleteButton" Grid.Column="1" Click="DeleteButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Icons/delete-button.png" />
                                 </Ellipse.Fill>
@@ -74,7 +97,7 @@
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="10" ShadowDepth="5"/>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -102,6 +125,19 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
             <Grid>
@@ -125,6 +161,19 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Effect">
+                                        <Setter.Value>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
         </StackPanel>

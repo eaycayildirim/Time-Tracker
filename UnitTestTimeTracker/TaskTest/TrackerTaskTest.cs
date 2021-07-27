@@ -53,7 +53,7 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void Pause_PausedTaskContinues()
+        public void Continue_PausedTaskContinues()
         {
             //Given
             TrackerTask trackerTask = new TrackerTask("TEST");
@@ -61,7 +61,7 @@ namespace UnitTestTimeTracker
             //When
             trackerTask.Press();
             trackerTask.Pause();
-            trackerTask.Pause();
+            trackerTask.Continue();
 
             //Then
             Assert.IsTrue(trackerTask.IsPressed());
@@ -130,7 +130,7 @@ namespace UnitTestTimeTracker
             trackerTask.Press();
             Thread.Sleep(miliseconds);
             trackerTask.Pause();
-            trackerTask.Pause();
+            trackerTask.Continue();
 
             //Then
             CollectionAssert.AreEquivalent(expected, trackerTask.GetProperties());

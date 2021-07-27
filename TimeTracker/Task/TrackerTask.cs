@@ -43,10 +43,12 @@ namespace nsTrackerTask
 
         public void Pause()
         {
-            if (IsPaused())
-                this._elapsedTime.Start();
-            else
-                this._elapsedTime.Stop();
+            this._elapsedTime.Stop();
+        }
+
+        public void Continue()
+        {
+            this._elapsedTime.Start();
         }
 
         public string GetElapsedTime()
