@@ -8,7 +8,7 @@ namespace UnitTestTimeTracker
     public class ButtonTest
     {
         [TestMethod]
-        public void Press_OneButtonPressed_True()
+        public void Press_TheButtonIsPressed()
         {
             //Given
             Button button = new Button();
@@ -20,7 +20,7 @@ namespace UnitTestTimeTracker
             Assert.AreEqual(true, button.IsPressed);
         }
         [TestMethod]
-        public void Press_OneButtonPressed_False()
+        public void Press_TheButtonIsUnpressed()
         {
             //Given
             Button button = new Button();
@@ -34,7 +34,7 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void Press_TwoButtonsPressed_True()
+        public void Press_TheButtonsArePressed()
         {
             //Given
             Button button1 = new Button();
