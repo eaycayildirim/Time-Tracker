@@ -8,10 +8,10 @@ namespace nsTracker
 {
     public class Tracker
     {
-        public Tracker(Dictionary<string, TrackerTask> tasks)
+        public Tracker(Dictionary<string, TrackerTask> tasks, IDatabase database)
         {
             this._tasks = tasks;
-            this._database = new CSV();
+            this._database = database;
         }
 
         public string GetFilePath()
@@ -80,11 +80,11 @@ namespace nsTracker
             return _tasks;
         }
 
-        protected void UpdatePressedButtons(string selection)
+        protected void UpdatePressedButtons(string taskKey)
         {
             foreach (var item in _tasks)
             {
-                if (_tasks[item.Key].IsPressed() && selection != item.Key)
+                if (_tasks[item.Key].IsPressed() && taskKey != item.Key)
                 {
                     _tasks[item.Key].Press();
                     _database.Write(_tasks[item.Key].GetProperties());

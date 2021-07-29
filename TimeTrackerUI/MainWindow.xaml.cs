@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.IO;
 using nsTracker;
 using nsTrackerTask;
+using nsCSV;
 
 namespace TimeTrackerUI
 {
@@ -32,7 +33,7 @@ namespace TimeTrackerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _tracker = new Tracker(GetTasks());
+            _tracker = new Tracker(GetTasks(), new CSV());
             LoadCombobox();
             PauseButton.IsEnabled = false;
         }

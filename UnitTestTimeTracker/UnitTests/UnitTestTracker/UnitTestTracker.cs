@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsTrackerTask;
-using nsTrackerMock;
 using System.Collections.Generic;
 using nsTracker;
 
@@ -12,7 +11,7 @@ namespace UnitTestTimeTracker
         public UnitTestTracker()
         {
             var tasks = new Dictionary<string, TrackerTask> { { "TEST1", new TrackerTask("TEST1") }, { "TEST2", new TrackerTask("TEST2") }, { "TEST3", new TrackerTask("TEST3") } };
-            _tracker = new Tracker(tasks);
+            _tracker = new Tracker(tasks, new CSV());
         }
 
         [TestMethod]

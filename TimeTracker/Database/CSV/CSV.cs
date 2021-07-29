@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using nsButton;
+﻿using System.Collections.Generic;
 using System.IO;
 using nsIDatabase;
 
 namespace nsCSV
 {
-    class CSV : IDatabase
+    public class CSV : IDatabase
     {
         public CSV()
         {

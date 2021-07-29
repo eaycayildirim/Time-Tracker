@@ -6,22 +6,22 @@ namespace nsIDatabaseTest
 {
     public class IDatabaseTest : IDatabase
     {
-        public string GetDatabaseFilePath()
+        virtual public string GetDatabaseFilePath()
         {
             throw new Exception();
         }
 
-        public string Read()
+        virtual public string Read()
         {
             throw new Exception();
         }
 
-        public void Write(string data)
+        virtual public void Write(string data)
         {
             throw new Exception();
         }
 
-        public void Write(List<string> data)
+        virtual public void Write(List<string> data)
         {
             throw new Exception();
         }
