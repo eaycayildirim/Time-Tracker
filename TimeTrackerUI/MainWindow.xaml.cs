@@ -40,7 +40,8 @@ namespace TimeTrackerUI
 
         private void ShowTaskDetails(string selection)
         {
-            TaskDetailsLabel.Content = _tracker.GetTasks()[selection].Name + " Started at " + DateTime.Now.ToString("HH:mm:ss");
+            var symbol = '\u25B6';
+            TaskDetailsLabel.Content = DateTime.Now.ToString("HH:mm:ss") + " " + symbol.ToString() + " " + _tracker.GetTasks()[selection].Name;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

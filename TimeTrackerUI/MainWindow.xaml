@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="250" Width="340" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="250" Width="300" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Border Padding="10">
         <StackPanel>
             <Grid UseLayoutRounding="True">
@@ -74,13 +74,13 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="198"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <ComboBox Name="SelectionCombobox" Height="25" Grid.Column="0" />
+                <ComboBox Name="SelectionCombobox" Height="23" Grid.Column="0"/>
                 <Button Name="DeleteButton" Grid.Column="1" Click="DeleteButton_Click">
                     <Button.Template>
                         <ControlTemplate>
@@ -108,13 +108,13 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="198"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <TextBox Name="AddTextBox" Height="25" Grid.Column="0"/>
+                <TextBox Name="AddTextBox" Height="23" Grid.Column="0"/>
                 <Button Name="AddButton" Grid.Column="1" Click="AddButton_Click">
                     <Button.Template>
                         <ControlTemplate>
@@ -142,11 +142,11 @@
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="198"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="55"/>
                 </Grid.RowDefinitions>
                 <Border BorderThickness="2" Height="40" BorderBrush="Black">
                     <Label Name="TaskDetailsLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
