@@ -6,6 +6,6 @@ namespace nsIDatabaseRead
 {
     public interface IDatabaseRead
     {
-        string Read();
+        public string Read();
     }
 }
