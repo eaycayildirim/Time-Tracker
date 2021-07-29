@@ -7,7 +7,7 @@ using System.Threading;
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class TrackerTaskTest
+    public class UnitTestTrackerTask
     {
         [TestMethod]
         public void Press_TaskIsStarted()

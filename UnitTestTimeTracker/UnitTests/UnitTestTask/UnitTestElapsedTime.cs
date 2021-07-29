@@ -1,12 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Threading;
 using nsElapsedTime;
 
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class ElapsedTimeTest
+    public class UnitTestElapsedTime
     {
         [TestMethod]
         public void Start_ElapsedTimeIsRunning()

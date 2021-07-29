@@ -1,11 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsButton;
-using System.Diagnostics;
 
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class ButtonTest
+    public class UnitTestButton
     {
         [TestMethod]
         public void Press_TheButtonIsPressed()

@@ -7,11 +7,11 @@ using nsTracker;
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class TrackerTest
+    public class UnitTestTracker
     {
-        public TrackerTest()
+        public UnitTestTracker()
         {
-            var tasks = new Dictionary<string, TrackerTask> { { "STUDY", new TrackerTask("STUDY") }, { "PLAY", new TrackerTask("PLAY") }, { "EAT", new TrackerTask("EAT") } };
+            var tasks = new Dictionary<string, TrackerTask> { { "TEST1", new TrackerTask("TEST1") }, { "TEST2", new TrackerTask("TEST2") }, { "TEST3", new TrackerTask("TEST3") } };
             _tracker = new Tracker(tasks);
         }
 
@@ -19,39 +19,34 @@ namespace UnitTestTimeTracker
         public void UpdateTracker_TaskIsStarted()
         {
             //Given
-            var selection = "STUDY";
-            var tasks = _tracker.GetTasks();
+            var selection = "TEST1";
 
             //When
             _tracker.UpdateTracker(selection);
 
             //Then
-            Assert.IsTrue(tasks[selection].IsPressed());
-            Assert.IsTrue(tasks[selection].IsRunning());
+            Assert.IsTrue(_tracker.IsTaskRunning(selection));
         }
 
         [TestMethod]
         public void UpdateTracker_TaskIsStopped()
         {
             //Given
-            var selection = "STUDY";
-            var tasks = _tracker.GetTasks();
+            var selection = "TEST1";
 
             //When
             _tracker.UpdateTracker(selection);
             _tracker.UpdateTracker(selection);
 
             //Then
-            Assert.IsFalse(tasks[selection].IsPressed());
-            Assert.IsFalse(tasks[selection].IsRunning());
+            Assert.IsFalse(_tracker.IsTaskRunning(selection));
         }
 
         [TestMethod]
         public void UpdateTracker_PausedTaskContinues()
         {
             //Given
-            var selection = "STUDY";
-            var tasks = _tracker.GetTasks();
+            var selection = "TEST1";
 
             //When
             _tracker.UpdateTracker(selection);
@@ -59,68 +54,86 @@ namespace UnitTestTimeTracker
             _tracker.UpdateTracker(selection);
 
             //Then
-            Assert.IsTrue(tasks[selection].IsPressed());
-            Assert.IsTrue(tasks[selection].IsRunning());
-            Assert.IsFalse(tasks[selection].IsPaused());
+            Assert.IsTrue(_tracker.IsTaskRunning(selection));
+            Assert.IsFalse(_tracker.IsTaskPaused(selection));
         }
 
         [TestMethod]
         public void PauseTheTask_TaskIsPaused()
         {
             //Given
-            var selection = "STUDY";
-            var tasks = _tracker.GetTasks();
+            var selection = "TEST1";
 
             //When
             _tracker.UpdateTracker(selection);
             _tracker.PauseTheTask(selection);
 
             //Then
-            Assert.IsTrue(tasks[selection].IsPaused());
+            Assert.IsTrue(_tracker.IsTaskPaused(selection));
         }
 
         [TestMethod]
         public void PauseTheTask_NonRunningTaskDoesNothing()
         {
             //Given
-            var selection = "STUDY";
-            var tasks = _tracker.GetTasks();
+            var selection = "TEST1";
 
             //When
             _tracker.PauseTheTask(selection);
 
             //Then
-            Assert.IsFalse(tasks[selection].IsPressed());
-            Assert.IsFalse(tasks[selection].IsRunning());
+            Assert.IsFalse(_tracker.IsTaskRunning(selection));
         }
 
         [TestMethod]
         public void AddTask_NewTaskAdded()
         {
             //Given
-            var selection = "REST";
+            var newTask = "TEST4";
+            var size = _tracker.GetTasks().Count;
 
             //When
-            _tracker.AddTask(selection);
+            _tracker.AddTask(newTask);
             var tasks = _tracker.GetTasks();
+            var newSize = tasks.Count;
 
             //Then
-            Assert.IsTrue(tasks.ContainsKey(selection));
+            Assert.AreEqual(newSize, size + 1);
+            Assert.IsTrue(tasks.ContainsKey(newTask));
         }
 
         [TestMethod]
         public void RemoveTask_RemoveOneTask_True()
         {
             //Given
-            var selection = "REST";
+            var task = "TEST1";
+            var size = _tracker.GetTasks().Count;
 
             //When
-            _tracker.AddTask(selection);
-            _tracker.RemoveTask(selection);
+            _tracker.RemoveTask(task);
+            var tasks = _tracker.GetTasks();
+            var newSize = tasks.Count;
+
+            //Then
+            Assert.AreEqual(newSize, size - 1);
+            Assert.IsFalse(tasks.ContainsKey(task));
+        }
+
+        [TestMethod]
+        public void RemoveTask_RemoveTaskAfterClear()       //??
+        {
+            //Given
+            var task = "TEST";
+
+            //When
+            _tracker.ClearTasks();
+            var size = _tracker.GetTasks().Count;
+            _tracker.RemoveTask(task);
             var tasks = _tracker.GetTasks();
 
             //Then
-            Assert.IsFalse(tasks.ContainsKey(selection));
+            Assert.AreEqual(tasks.Count, size);
+            Assert.IsFalse(tasks.ContainsKey(task));
         }
 
         [TestMethod]
@@ -133,27 +146,9 @@ namespace UnitTestTimeTracker
             var tasks = _tracker.GetTasks();
 
             //Then
-            Assert.IsTrue(tasks.Count==0);
-        }
-
-        [TestMethod]
-        public void UpdatePressedButtons_UnpressTheButton()
-        {
-            //Given
-            var tasks = _tracker.GetTasks();
-            _trackerMock = new TrackerMock(tasks);
-            var selectionOne = "STUDY";
-            var selectionTwo = "EAT";
-
-            //When
-            _trackerMock.UpdateTracker(selectionOne);
-            _trackerMock.UpdatePressedButtonsMock(selectionTwo);
-
-            //Then
-            Assert.IsFalse(tasks[selectionOne].IsPressed());
+            Assert.IsTrue(tasks.Count == 0);
         }
 
         private Tracker _tracker;
-        private TrackerMock _trackerMock;
     }
 }

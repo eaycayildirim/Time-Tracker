@@ -40,6 +40,16 @@ namespace nsTracker
             }
         }
 
+        public bool IsTaskRunning(string selection)
+        {
+            return _tasks[selection].IsPressed() && _tasks[selection].IsRunning();
+        }
+
+        public bool IsTaskPaused(string selection)
+        {
+            return _tasks[selection].IsPaused();
+        }
+
         public bool IsTaskJustStarted(string selection)
         {
             return _tasks[selection].IsPressed() && _tasks[selection].GetElapsedTime()=="00:00:00" ? true : false;
