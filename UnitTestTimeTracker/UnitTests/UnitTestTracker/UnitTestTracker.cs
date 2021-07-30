@@ -20,70 +20,70 @@ namespace UnitTestTimeTracker
         public void UpdateTracker_TaskIsStarted()
         {
             //Given
-            var selection = "TEST1";
+            var selectedTask = "TEST1";
 
             //When
-            _tracker.UpdateTracker(selection);
+            _tracker.UpdateTracker(selectedTask);
 
             //Then
-            Assert.IsTrue(_tracker.IsTaskRunning(selection));
+            Assert.IsTrue(_tracker.IsTaskRunning(selectedTask));
         }
 
         [TestMethod]
         public void UpdateTracker_TaskIsStopped()
         {
             //Given
-            var selection = "TEST1";
+            var selectedTask = "TEST1";
 
             //When
-            _tracker.UpdateTracker(selection);
-            _tracker.UpdateTracker(selection);
+            _tracker.UpdateTracker(selectedTask);
+            _tracker.UpdateTracker(selectedTask);
 
             //Then
-            Assert.IsFalse(_tracker.IsTaskRunning(selection));
+            Assert.IsFalse(_tracker.IsTaskRunning(selectedTask));
         }
 
         [TestMethod]
         public void UpdateTracker_PausedTaskContinues()
         {
             //Given
-            var selection = "TEST1";
+            var selectedTask = "TEST1";
 
             //When
-            _tracker.UpdateTracker(selection);
-            _tracker.PauseTheTask(selection);
-            _tracker.UpdateTracker(selection);
+            _tracker.UpdateTracker(selectedTask);
+            _tracker.PauseTheTask(selectedTask);
+            _tracker.UpdateTracker(selectedTask);
 
             //Then
-            Assert.IsTrue(_tracker.IsTaskRunning(selection));
-            Assert.IsFalse(_tracker.IsTaskPaused(selection));
+            Assert.IsTrue(_tracker.IsTaskRunning(selectedTask));
+            Assert.IsFalse(_tracker.IsTaskPaused(selectedTask));
         }
 
         [TestMethod]
         public void PauseTheTask_TaskIsPaused()
         {
             //Given
-            var selection = "TEST1";
+            var selectedTask = "TEST1";
 
             //When
-            _tracker.UpdateTracker(selection);
-            _tracker.PauseTheTask(selection);
+            _tracker.UpdateTracker(selectedTask);
+            _tracker.PauseTheTask(selectedTask);
 
             //Then
-            Assert.IsTrue(_tracker.IsTaskPaused(selection));
+            Assert.IsTrue(_tracker.IsTaskPaused(selectedTask));
         }
 
         [TestMethod]
         public void PauseTheTask_NonRunningTaskDoesNothing()
         {
             //Given
-            var selection = "TEST1";
+            var selectedTask = "TEST1";
 
             //When
-            _tracker.PauseTheTask(selection);
+            _tracker.PauseTheTask(selectedTask);
 
             //Then
-            Assert.IsFalse(_tracker.IsTaskRunning(selection));
+            Assert.IsFalse(_tracker.IsTaskRunning(selectedTask));
         }
 
         [TestMethod]
