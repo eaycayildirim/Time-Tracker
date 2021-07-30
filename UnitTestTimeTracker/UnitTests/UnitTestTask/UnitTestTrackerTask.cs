@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsTrackerTask;
-using nsTrackerTaskMock;
+using nsMockTrackerTask;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -72,7 +72,7 @@ namespace UnitTestTimeTracker
         public void GetProperties_AfterOneSecond_Started()
         {
             //Given
-            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            MockTrackerTask trackerTask = new MockTrackerTask("TEST");
             var miliseconds = 1000;
             List<string> expected = new List<string> { "TEST", "00:00:01", "Started" };
 
@@ -88,7 +88,7 @@ namespace UnitTestTimeTracker
         public void GetProperties_AfterThreeSeconds_Stopped()
         {
             //Given
-            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            MockTrackerTask trackerTask = new MockTrackerTask("TEST");
             var miliseconds = 3000;
             List<string> expected = new List<string> { "TEST", "00:00:03", "Finished" };
 
@@ -105,7 +105,7 @@ namespace UnitTestTimeTracker
         public void GetProperties_AfterOneSecond_Paused()
         {
             //Given
-            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            MockTrackerTask trackerTask = new MockTrackerTask("TEST");
             var miliseconds = 1000;
             List<string> expected = new List<string> { "TEST", "00:00:01", "Paused" };
 
@@ -122,7 +122,7 @@ namespace UnitTestTimeTracker
         public void GetProperties_AfterTwoSeconds_Continues()
         {
             //Given
-            TrackerTaskMock trackerTask = new TrackerTaskMock("TEST");
+            MockTrackerTask trackerTask = new MockTrackerTask("TEST");
             var miliseconds = 2000;
             List<string> expected = new List<string> { "TEST", "00:00:02", "Started" };
 

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using nsIDatabase;
-using nsCSV;
 using nsTrackerTask;
 
 namespace nsTracker
@@ -19,40 +17,40 @@ namespace nsTracker
             return _database.GetDatabaseFilePath();
         }
 
-        public void UpdateTracker(string selection)
+        public void UpdateTracker(string taskKey)
         {
-            if (_tasks[selection].IsPaused())
-                _tasks[selection].Continue();
+            if (_tasks[taskKey].IsPaused())
+                _tasks[taskKey].Continue();
             else
             {
-                UpdatePressedButtons(selection);
-                _tasks[selection].Press();
+                UpdatePressedButtons(taskKey);
+                _tasks[taskKey].Press();
             }
-            _database.Write(_tasks[selection].GetProperties());
+            _database.Write(_tasks[taskKey].GetProperties());
         }
 
-        public void PauseTheTask(string selection)
+        public void PauseTheTask(string taskKey)
         {
-            if (_tasks[selection].IsRunning())
+            if (_tasks[taskKey].IsRunning())
             {
-                _tasks[selection].Pause();
-                _database.Write(_tasks[selection].GetProperties());
+                _tasks[taskKey].Pause();
+                _database.Write(_tasks[taskKey].GetProperties());
             }
         }
 
-        public bool IsTaskRunning(string selection)
+        public bool IsTaskRunning(string taskKey)
         {
-            return _tasks[selection].IsPressed() && _tasks[selection].IsRunning();
+            return _tasks[taskKey].IsPressed() && _tasks[taskKey].IsRunning();
         }
 
-        public bool IsTaskPaused(string selection)
+        public bool IsTaskPaused(string taskKey)
         {
-            return _tasks[selection].IsPaused();
+            return _tasks[taskKey].IsPaused();
         }
 
-        public bool IsTaskJustStarted(string selection)
+        public bool IsTaskJustStarted(string taskKey)
         {
-            return _tasks[selection].IsPressed() && _tasks[selection].GetElapsedTime()=="00:00:00" ? true : false;
+            return _tasks[taskKey].IsPressed() && _tasks[taskKey].GetElapsedTime()=="00:00:00" ? true : false;
         }
 
         public string GetElapsedTime(TrackerTask task)

@@ -1,4 +1,5 @@
 ﻿using nsIDatabaseTest;
+using System.Collections.Generic;
 
 namespace nsMockDatabase
 {
@@ -14,14 +15,14 @@ namespace nsMockDatabase
             return "";
         }
 
-        //public void Write(string data)
-        //{
-        //    throw new Exception();
-        //}
+        override public void Write(string data)
+        {
+            
+        }
 
-        //public void Write(List<string> data)
-        //{
-        //    throw new Exception();
-        //}
+        override public void Write(List<string> data)
+        {
+            
+        }
     }
 }

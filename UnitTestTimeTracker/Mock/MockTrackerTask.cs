@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using nsTrackerTask;
 
-namespace nsTrackerTaskMock
+namespace nsMockTrackerTask
 {
-    public class TrackerTaskMock : TrackerTask
+    public class MockTrackerTask : TrackerTask
     {
-        public TrackerTaskMock(string task) : base(task)
+        public MockTrackerTask(string task) : base(task)
         {
 
         }

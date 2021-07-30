@@ -3,11 +3,11 @@ using nsTracker;
 using nsTrackerTask;
 using nsIDatabase;
 
-namespace nsTrackerMock
+namespace nsMockTracker
 {
-    public class TrackerMock : Tracker
+    public class MockTracker : Tracker
     {
-        public TrackerMock(Dictionary<string, TrackerTask> tasks, IDatabase database) : base(tasks, database)
+        public MockTracker(Dictionary<string, TrackerTask> tasks, IDatabase database) : base(tasks, database)
         {
         }
 

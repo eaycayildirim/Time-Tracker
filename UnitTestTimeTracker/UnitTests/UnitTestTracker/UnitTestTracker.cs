@@ -2,6 +2,8 @@
 using nsTrackerTask;
 using System.Collections.Generic;
 using nsTracker;
+using nsIDatabase;
+using nsMockDatabase;
 
 namespace UnitTestTimeTracker
 {
@@ -11,7 +13,7 @@ namespace UnitTestTimeTracker
         public UnitTestTracker()
         {
             var tasks = new Dictionary<string, TrackerTask> { { "TEST1", new TrackerTask("TEST1") }, { "TEST2", new TrackerTask("TEST2") }, { "TEST3", new TrackerTask("TEST3") } };
-            _tracker = new Tracker(tasks, new CSV());
+            _tracker = new Tracker(tasks, database);
         }
 
         [TestMethod]
@@ -149,5 +151,6 @@ namespace UnitTestTimeTracker
         }
 
         private Tracker _tracker;
+        private IDatabase database = new MockDatabase();
     }
 }

@@ -38,10 +38,10 @@ namespace TimeTrackerUI
             PauseButton.IsEnabled = false;
         }
 
-        private void ShowTaskDetails(string selection)
+        private void ShowTaskDetails(string taskKey)
         {
             var symbol = '\u25B6';
-            TaskDetailsLabel.Content = DateTime.Now.ToString("HH:mm:ss") + " " + symbol.ToString() + " " + _tracker.GetTasks()[selection].Name;
+            TaskDetailsLabel.Content = DateTime.Now.ToString("HH:mm:ss") + " " + symbol.ToString() + " " + _tracker.GetTasks()[taskKey].Name;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace TimeTrackerUI
                 string text = AddTextBox.Text.ToUpper();
                 Properties.Settings.Default.Combobox.Add(text);
                 Properties.Settings.Default.Save();
-                UpdateCombobox(text);     //**
+                UpdateCombobox(text);
                 UpdateTracker(text);
             }
             else
@@ -61,12 +61,12 @@ namespace TimeTrackerUI
 
         private bool IsTextNullOrEmpty()
         {
-            return string.IsNullOrEmpty(AddTextBox.Text) ? true : false;
+            return string.IsNullOrEmpty(AddTextBox.Text);
         }
 
         private bool DoesTaskAlreadyExist()
         {
-            return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()) ? true : false;
+            return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper());
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace TimeTrackerUI
                 string selectedItem = GetSelectedItem().ToString();
                 Properties.Settings.Default.Combobox.Remove(selectedItem);
                 Properties.Settings.Default.Save();
-                UpdateCombobox(selectedItem);       //**
+                UpdateCombobox(selectedItem);
                 UpdateTracker(selectedItem);
             }
             else
@@ -146,7 +146,7 @@ namespace TimeTrackerUI
 
         private bool IsSelectedItemNull()
         {
-            return GetSelectedItem() == null ? true : false;
+            return GetSelectedItem() == null;
         }
 
         private void StartStopButton_Click(object sender, RoutedEventArgs e)
@@ -154,10 +154,10 @@ namespace TimeTrackerUI
             PauseButton.IsEnabled = true;
             if (!IsSelectedItemNull())
             {
-                var selection = GetSelectedItem().ToString();
-                _tracker.UpdateTracker(selection);
+                var selectedItem = GetSelectedItem().ToString();
+                _tracker.UpdateTracker(selectedItem);
                 StartElapsedTime();
-                UpdateUI(selection);
+                UpdateUI(selectedItem);
             }
             else
                 MessageBox.Show("Please select a task.");
@@ -168,8 +168,8 @@ namespace TimeTrackerUI
             PauseButton.IsEnabled = false;
             if (!IsSelectedItemNull())
             {
-                var selection = GetSelectedItem().ToString();
-                _tracker.PauseTheTask(selection);
+                var selectedItem = GetSelectedItem().ToString();
+                _tracker.PauseTheTask(selectedItem);
             }
             else
                 MessageBox.Show("Please select a task.");
@@ -187,19 +187,19 @@ namespace TimeTrackerUI
         {
             if (!IsSelectedItemNull())
             {
-                string selection = GetSelectedItem().ToString();
-                TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selection]);
+                string selectedItem = GetSelectedItem().ToString();
+                TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedItem]);
             }
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
-            var fileToOpen = _tracker.GetFilePath();
+            var filePath = _tracker.GetFilePath();
             var process = new Process();
 
-            if (File.Exists(fileToOpen))
+            if (File.Exists(filePath))
             {
-                process.StartInfo = new ProcessStartInfo(fileToOpen) { UseShellExecute = true };
+                process.StartInfo = new ProcessStartInfo(filePath) { UseShellExecute = true };
                 process.Start();
             }
             else
