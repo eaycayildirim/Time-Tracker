@@ -206,13 +206,11 @@ namespace TimeTrackerUI
                 MessageBox.Show("File not found.");
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) //**
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            _tracker.FinishTheTasks();
         }
 
         private Tracker _tracker;
-
-        //TODO: Finish the running task when you close the program
     }
 }

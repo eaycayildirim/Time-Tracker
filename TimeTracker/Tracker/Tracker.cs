@@ -73,6 +73,18 @@ namespace nsTracker
             _tasks.Clear();
         }
 
+        public void FinishTheTasks()
+        {
+            foreach (var item in _tasks)
+            {
+                if (_tasks[item.Key].IsPressed())
+                {
+                    _tasks[item.Key].Press();
+                    _database.Write(_tasks[item.Key].GetProperties());
+                }
+            }
+        }
+
         public Dictionary<string, TrackerTask> GetTasks()
         {
             return _tasks;
