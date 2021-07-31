@@ -132,15 +132,12 @@ namespace TimeTrackerUI
         {
             if (IsTaskRunning(selection))
             {
-                //StartStopButton.Content = new Image
-                //{
-                //    Source = new BitmapImage(new Uri("/Resources/Icons/stop.png", UriKind.Relative))
-                //};
-                
+                StartStopButton.Template = FindResource("StopButtonTemplate") as ControlTemplate;
                 ShowTaskDetails(selection);
             }
             else
             {
+                StartStopButton.Template = FindResource("PlayButtonTemplate") as ControlTemplate;
             }
         }
 

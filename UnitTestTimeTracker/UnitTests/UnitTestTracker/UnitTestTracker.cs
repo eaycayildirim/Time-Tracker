@@ -60,6 +60,40 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
+        public void UpdateTracker_StartTheTaskWhileOneIsRunning()
+        {
+            //Given
+            var task1 = "TEST1";
+            var task2 = "TEST2";
+
+            //When
+            _tracker.UpdateTracker(task1);
+            _tracker.UpdateTracker(task2);
+
+            //Then
+            Assert.IsFalse(_tracker.IsTaskRunning(task1));
+            Assert.IsTrue(_tracker.IsTaskRunning(task2));
+        }
+
+        [TestMethod]
+        public void UpdateTracker_StartTheTaskWhileOneIsPaused()
+        {
+            //Given
+            var task1 = "TEST1";
+            var task2 = "TEST2";
+
+            //When
+            _tracker.UpdateTracker(task1);
+            _tracker.PauseTheTask(task1);
+            _tracker.UpdateTracker(task2);
+
+            //Then
+            Assert.IsFalse(_tracker.IsTaskRunning(task1));
+            Assert.IsFalse(_tracker.IsTaskPaused(task1));
+            Assert.IsTrue(_tracker.IsTaskRunning(task2));
+        }
+
+        [TestMethod]
         public void PauseTheTask_TaskIsPaused()
         {
             //Given
@@ -74,7 +108,22 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void PauseTheTask_NonRunningTaskDoesNothing()
+        public void PauseTheTask_PauseThePausedTaskDoesNothing()
+        {
+            //Given
+            var selectedTask = "TEST1";
+
+            //When
+            _tracker.UpdateTracker(selectedTask);
+            _tracker.PauseTheTask(selectedTask);
+            _tracker.PauseTheTask(selectedTask);
+
+            //Then
+            Assert.IsTrue(_tracker.IsTaskPaused(selectedTask));
+        }
+
+        [TestMethod]
+        public void PauseTheTask_PauseNonRunningTaskDoesNothing()
         {
             //Given
             var selectedTask = "TEST1";
