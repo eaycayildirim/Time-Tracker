@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.IO;
@@ -123,12 +113,11 @@ namespace TimeTrackerUI
             return SelectionCombobox.SelectedItem;
         }
 
-        private bool IsTaskRunning(string selection) //**
+        private bool IsTaskRunning(string selection)
         {
-            return _tracker.IsTaskJustStarted(selection);
+            return _tracker.IsTaskRunning(selection);
         }
-
-        private void UpdateUI(string selection) //**
+        private void UpdateUI(string selection)
         {
             if (IsTaskRunning(selection))
             {
@@ -136,9 +125,7 @@ namespace TimeTrackerUI
                 ShowTaskDetails(selection);
             }
             else
-            {
                 StartStopButton.Template = FindResource("PlayButtonTemplate") as ControlTemplate;
-            }
         }
 
         private bool IsSelectedItemNull()
@@ -167,6 +154,7 @@ namespace TimeTrackerUI
             {
                 var selectedItem = GetSelectedItem().ToString();
                 _tracker.PauseTheTask(selectedItem);
+                UpdateUI(selectedItem);
             }
             else
                 MessageBox.Show("Please select a task.");

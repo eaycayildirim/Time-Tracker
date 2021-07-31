@@ -47,7 +47,7 @@ namespace nsCSV
                 FileStream fs = File.Open(_filePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
                 fs.Close();
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 blnReturn = true;
             }

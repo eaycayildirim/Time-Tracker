@@ -13,7 +13,7 @@ namespace UnitTestTimeTracker
         public UnitTestTracker()
         {
             var tasks = new Dictionary<string, TrackerTask> { { "TEST1", new TrackerTask("TEST1") }, { "TEST2", new TrackerTask("TEST2") }, { "TEST3", new TrackerTask("TEST3") } };
-            _tracker = new Tracker(tasks, database);
+            _tracker = new Tracker(tasks, new MockDatabase());
         }
 
         [TestMethod]
@@ -200,6 +200,5 @@ namespace UnitTestTimeTracker
         }
 
         private Tracker _tracker;
-        private IDatabase database = new MockDatabase();
     }
 }
