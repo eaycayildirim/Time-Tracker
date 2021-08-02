@@ -27,12 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Add.png" />
-    <Resource Include="Bin.png" />
-    <Resource Include="Log.png" />
-    <Resource Include="Pause.png" />
-    <Resource Include="Play.png" />
-    <Resource Include="Stop.png" />
+    <Resource Include="Resources\Buttons\Add.png" />
+    <Resource Include="Resources\Buttons\Bin.png" />
+    <Resource Include="Resources\Buttons\Log.png" />
+    <Resource Include="Resources\Buttons\Pause.png" />
+    <Resource Include="Resources\Buttons\Play.png" />
+    <Resource Include="Resources\Buttons\Stop.png" />
   </ItemGroup>
 
   <ItemGroup>
