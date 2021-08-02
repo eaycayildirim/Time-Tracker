@@ -14,7 +14,7 @@
                         <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                     </Ellipse.BitmapEffect>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resources/Icons/play.png"/>
+                        <ImageBrush ImageSource="/Play.png"/>
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
@@ -26,7 +26,7 @@
                         <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                     </Ellipse.BitmapEffect>
                     <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Resources/Icons/stop.png"/>
+                        <ImageBrush ImageSource="/Stop.png"/>
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
@@ -64,7 +64,7 @@
                         <ControlTemplate>
                             <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Icons/pause.png" />
+                                    <ImageBrush ImageSource="/Pause.png" />
                                 </Ellipse.Fill>
                                 <Ellipse.BitmapEffect>
                                     <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
@@ -101,7 +101,7 @@
                         <ControlTemplate>
                             <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Icons/delete-button.png" />
+                                    <ImageBrush ImageSource="/Bin.png" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>
@@ -135,7 +135,7 @@
                         <ControlTemplate>
                             <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Icons/add-button.png" />
+                                    <ImageBrush ImageSource="/Add.png" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>
@@ -171,7 +171,7 @@
                         <ControlTemplate>
                             <Ellipse x:Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Icons/menu_button.png" />
+                                    <ImageBrush ImageSource="/Log.png"/>
                                 </Ellipse.Fill>
                             </Ellipse>
                         </ControlTemplate>

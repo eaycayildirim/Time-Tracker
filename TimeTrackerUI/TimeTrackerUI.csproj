@@ -7,11 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Icons\add-button.png" />
-    <None Remove="Resources\Icons\delete-button.png" />
-    <None Remove="Resources\Icons\menu_button.png" />
-    <None Remove="Resources\Icons\pause.png" />
-    <None Remove="Resources\Icons\stop.png" />
+    <Compile Remove="Resources\Icons\**" />
+    <EmbeddedResource Remove="Resources\Icons\**" />
+    <None Remove="Resources\Icons\**" />
+    <Page Remove="Resources\Icons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Add.png" />
+    <None Remove="Bin.png" />
+    <None Remove="Log.png" />
+    <None Remove="Pause.png" />
+    <None Remove="Play.png" />
+    <None Remove="Stop.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,12 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\add-button.png" />
-    <Resource Include="Resources\Icons\delete-button.png" />
-    <Resource Include="Resources\Icons\menu_button.png" />
-    <Resource Include="Resources\Icons\pause.png" />
-    <Resource Include="Resources\Icons\play.png" />
-    <Resource Include="Resources\Icons\stop.png" />
+    <Resource Include="Add.png" />
+    <Resource Include="Bin.png" />
+    <Resource Include="Log.png" />
+    <Resource Include="Pause.png" />
+    <Resource Include="Play.png" />
+    <Resource Include="Stop.png" />
   </ItemGroup>
 
   <ItemGroup>
