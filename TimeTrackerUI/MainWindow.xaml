@@ -57,7 +57,7 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>-->
+                    </Button.Style>
                 </Button>
                 <Button Name="PauseButton" Grid.Column="2" Click="PauseButton_Click">
                     <Button.Template>
