@@ -169,7 +169,7 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void RemoveTask_RemoveTaskAfterClear()       //??
+        public void RemoveTask_RemoveTaskAfterClear()
         {
             //Given
             var task = "TEST";

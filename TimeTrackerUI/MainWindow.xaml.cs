@@ -117,13 +117,14 @@ namespace TimeTrackerUI
         {
             return _tracker.IsTaskRunning(selection);
         }
+
         private void UpdateUI(string selection)
         {
-            if (IsTaskRunning(selection))
-            {
-                StartStopButton.Template = FindResource("StopButtonTemplate") as ControlTemplate;
+            if(_tracker.IsTaskJustStarted(selection))
                 ShowTaskDetails(selection);
-            }
+
+            if (IsTaskRunning(selection))
+                StartStopButton.Template = FindResource("StopButtonTemplate") as ControlTemplate;
             else
                 StartStopButton.Template = FindResource("PlayButtonTemplate") as ControlTemplate;
         }
@@ -135,9 +136,9 @@ namespace TimeTrackerUI
 
         private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
-            PauseButton.IsEnabled = true;
             if (!IsSelectedItemNull())
             {
+                PauseButton.IsEnabled = true;
                 var selectedItem = GetSelectedItem().ToString();
                 _tracker.UpdateTracker(selectedItem);
                 StartElapsedTime();
@@ -149,9 +150,9 @@ namespace TimeTrackerUI
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            PauseButton.IsEnabled = false;
             if (!IsSelectedItemNull())
             {
+                PauseButton.IsEnabled = false;
                 var selectedItem = GetSelectedItem().ToString();
                 _tracker.PauseTheTask(selectedItem);
                 UpdateUI(selectedItem);
