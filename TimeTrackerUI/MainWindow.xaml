@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" Height="250" Width="300" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFDDE2C5" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" Height="250" Width="290" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFC3BE9F" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
         <ControlTemplate x:Key="PlayButtonTemplate" TargetType="{x:Type Button}">
             <Grid>
-                <Ellipse Name="PlayEllipse" Width="40" Height="40" Stroke="Black">
+                <Ellipse Name="PlayEllipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1.5">
                     <Ellipse.BitmapEffect>
                         <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                     </Ellipse.BitmapEffect>
@@ -21,7 +21,7 @@
         </ControlTemplate>
         <ControlTemplate x:Key="StopButtonTemplate" TargetType="{x:Type Button}">
             <Grid>
-                <Ellipse Name="StopEllipse" Width="40" Height="40" Stroke="Black">
+                <Ellipse Name="StopEllipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1.5">
                     <Ellipse.BitmapEffect>
                         <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
                     </Ellipse.BitmapEffect>
@@ -40,7 +40,7 @@
                     <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Border BorderThickness="2" BorderBrush="Black">
+                <Border BorderThickness="1.5" BorderBrush="Black" CornerRadius="5" Background="#FFF5F7DC">
                     <Label Name="TimerLabel" Content="00:00:00" Grid.Column="0" Foreground="Black" FontSize="35" HorizontalContentAlignment="Center"/>
                 </Border>
                 <Button Name="StartStopButton" Grid.Column="1" Click="StartStopButton_Click"
@@ -62,9 +62,9 @@
                 <Button Name="PauseButton" Grid.Column="2" Click="PauseButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black">
+                            <Ellipse Name="Ellipse" Width="40" Height="40" Stroke="Black" StrokeThickness="1.5">
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Resources/Buttons/Pause.png" />
+                                    <ImageBrush ImageSource="/Resources/Buttons/Pause.png"/>
                                 </Ellipse.Fill>
                                 <Ellipse.BitmapEffect>
                                     <DropShadowBitmapEffect Color="Black" Direction="-90" ShadowDepth="0" Softness=".7" />
@@ -102,7 +102,7 @@
                 <Button Name="DeleteButton" Grid.Column="1" Click="DeleteButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black">
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1.5">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Buttons/Bin.png" />
                                 </Ellipse.Fill>
@@ -115,7 +115,7 @@
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -136,7 +136,7 @@
                 <Button Name="AddButton" Grid.Column="1" Click="AddButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
+                            <Ellipse Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1.5">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Buttons/Add.png" />
                                 </Ellipse.Fill>
@@ -149,7 +149,7 @@
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Effect">
                                         <Setter.Value>
-                                            <DropShadowEffect BlurRadius="10" ShadowDepth="3"/>
+                                            <DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
                                         </Setter.Value>
                                     </Setter>
                                 </Trigger>
@@ -166,13 +166,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="55"/>
                 </Grid.RowDefinitions>
-                <Border BorderThickness="2" Height="40" BorderBrush="Black">
+                <Border BorderThickness="1.5" Height="40" BorderBrush="Black" CornerRadius="5" Background="White">
                     <Label Name="TaskDetailsLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
                 </Border>
                 <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click">
                     <Button.Template>
                         <ControlTemplate>
-                            <Ellipse x:Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1">
+                            <Ellipse x:Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1.5">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="/Resources/Buttons/Log.png"/>
                                 </Ellipse.Fill>
