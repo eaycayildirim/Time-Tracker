@@ -66,12 +66,7 @@ namespace nsTrackerTask
 
         public virtual List<string> GetProperties()
         {
-            return new List<string> { this.Name, DateTime.Now.ToString(), GetElapsedTime(), GetStatus() };
-        }
-
-        protected string GetStatus()
-        {
-            return this.Status;
+            return new List<string> { this.Name, DateTime.Now.ToString(), GetElapsedTime(), this.Status };
         }
 
         public string Name { get; }
