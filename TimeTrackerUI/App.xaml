@@ -4,22 +4,6 @@
              xmlns:local="clr-namespace:TrackerUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="Button" x:Key="Shadow">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Effect">
-                                    <Setter.Value>
-                                        <DropShadowEffect BlurRadius="8" ShadowDepth="3"/>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        
     </Application.Resources>
 </Application>
