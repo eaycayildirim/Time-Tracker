@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using nsIDatabase;
-using nsCSV;
 using nsTrackerTask;
 
 namespace nsTracker
 {
     public class Tracker
     {
-        public Tracker(List<TrackerTask>tasks)
+        public Tracker(Dictionary<string, TrackerTask> tasks, IDatabase database)
         {
             this._tasks = tasks;
-            this._database = new CSV();
+            this._database = database;
         }
 
         public string GetFilePath()
@@ -19,30 +17,40 @@ namespace nsTracker
             return _database.GetDatabaseFilePath();
         }
 
-        public void UpdateTracker(int selection)
+        public void UpdateTracker(string taskKey)
         {
-            if (_tasks[selection].IsPaused())
-                _tasks[selection].Pause();
+            if (_tasks[taskKey].IsPaused())
+                _tasks[taskKey].Continue();
             else
             {
-                UpdatePressedButtons(selection);
-                _tasks[selection].Press();
+                UpdatePressedButtons(taskKey);
+                _tasks[taskKey].Press();
             }
-            _database.Write(_tasks[selection].GetProperties());
+            _database.Write(_tasks[taskKey].GetProperties());
         }
 
-        public void PauseTheTask(int selection)
+        public void PauseTheTask(string taskKey)
         {
-            if (_tasks[selection].IsRunning())
+            if (_tasks[taskKey].IsRunning())
             {
-                _tasks[selection].Pause();
-                _database.Write(_tasks[selection].GetProperties());
+                _tasks[taskKey].Pause();
+                _database.Write(_tasks[taskKey].GetProperties());
             }
         }
 
-        public bool IsTaskRunning(int index) //**
+        public bool IsTaskRunning(string taskKey)
         {
-            return _tasks[index].IsPressed();
+            return _tasks[taskKey].IsPressed() && _tasks[taskKey].IsRunning();
+        }
+
+        public bool IsTaskPaused(string taskKey)
+        {
+            return _tasks[taskKey].IsPaused();
+        }
+
+        public bool IsTaskJustStarted(string taskKey)
+        {
+            return _tasks[taskKey].IsPressed() && _tasks[taskKey].GetElapsedTime()=="00:00:00";
         }
 
         public string GetElapsedTime(TrackerTask task)
@@ -50,12 +58,12 @@ namespace nsTracker
             return task.GetElapsedTime();
         }
 
-        public void AddTask(TrackerTask task)
+        public void AddTask(string task)
         {
-            _tasks.Add(task);
+            _tasks.Add(task, new TrackerTask(task));
         }
 
-        public void RemoveTask(TrackerTask task)
+        public void RemoveTask(string task)
         {
             _tasks.Remove(task);
         }
@@ -65,24 +73,36 @@ namespace nsTracker
             _tasks.Clear();
         }
 
-        public List<TrackerTask> GetTasks()
+        public void FinishTheTasks()
         {
-            return _tasks;
-        }
-
-        private void UpdatePressedButtons(int selection)
-        {
-            for (int i = 0; i < _tasks.Count; i++)
+            foreach (var item in _tasks)
             {
-                if (_tasks[i].IsPressed() && selection != i)
+                if (_tasks[item.Key].IsPressed())
                 {
-                    _tasks[i].Press();
-                    _database.Write(_tasks[i].GetProperties());
+                    _tasks[item.Key].Press();
+                    _database.Write(_tasks[item.Key].GetProperties());
                 }
             }
         }
 
-        private List<TrackerTask> _tasks;
+        public Dictionary<string, TrackerTask> GetTasks()
+        {
+            return _tasks;
+        }
+
+        protected void UpdatePressedButtons(string taskKey)
+        {
+            foreach (var item in _tasks)
+            {
+                if (_tasks[item.Key].IsPressed() && taskKey != item.Key)
+                {
+                    _tasks[item.Key].Press();
+                    _database.Write(_tasks[item.Key].GetProperties());
+                }
+            }
+        }
+
+        private Dictionary<string, TrackerTask> _tasks;
         private IDatabase _database;
     }
 }

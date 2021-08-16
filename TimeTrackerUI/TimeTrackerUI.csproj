@@ -7,7 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\Icons\**" />
+    <EmbeddedResource Remove="Resources\Icons\**" />
+    <None Remove="Resources\Icons\**" />
+    <Page Remove="Resources\Icons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Add.png" />
+    <None Remove="Bin.png" />
+    <None Remove="Log.png" />
+    <None Remove="Pause.png" />
+    <None Remove="Play.png" />
+    <None Remove="Stop.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TimeTracker\TimeTracker.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Buttons\Add.png" />
+    <Resource Include="Resources\Buttons\Bin.png" />
+    <Resource Include="Resources\Buttons\Log.png" />
+    <Resource Include="Resources\Buttons\Pause.png" />
+    <Resource Include="Resources\Buttons\Play.png" />
+    <Resource Include="Resources\Buttons\Stop.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using nsButton;
+﻿using System.Collections.Generic;
 using System.IO;
 using nsIDatabase;
 
 namespace nsCSV
 {
-    class CSV : IDatabase
+    public class CSV : IDatabase
     {
         public CSV()
         {
@@ -40,21 +37,6 @@ namespace nsCSV
         public string GetDatabaseFilePath()
         {
             return _filePath;
-        }
-
-        public bool IsFileLocked() //**
-        {
-            bool blnReturn = false;
-            try
-            {
-                FileStream fs = File.Open(_filePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
-                fs.Close();
-            }
-            catch (IOException ex)
-            {
-                blnReturn = true;
-            }
-            return blnReturn;
         }
 
         private string _filePath;

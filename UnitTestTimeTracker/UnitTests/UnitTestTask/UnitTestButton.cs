@@ -1,14 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using nsButton;
-using System.Diagnostics;
 
 namespace UnitTestTimeTracker
 {
     [TestClass]
-    public class ButtonTest
+    public class UnitTestButton
     {
         [TestMethod]
-        public void TestPressTheButtonOnce()
+        public void Press_TheButtonIsPressed()
         {
             //Given
             Button button = new Button();
@@ -20,7 +19,7 @@ namespace UnitTestTimeTracker
             Assert.AreEqual(true, button.IsPressed);
         }
         [TestMethod]
-        public void TestPressTheButtonTwice()
+        public void Press_TheButtonIsUnpressed()
         {
             //Given
             Button button = new Button();
@@ -34,7 +33,7 @@ namespace UnitTestTimeTracker
         }
 
         [TestMethod]
-        public void TestPressTwoButtons()
+        public void Press_TheButtonsArePressed()
         {
             //Given
             Button button1 = new Button();

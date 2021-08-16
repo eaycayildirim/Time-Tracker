@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.IO;
 using nsTracker;
 using nsTrackerTask;
+using nsCSV;
 
 namespace TimeTrackerUI
 {
@@ -32,24 +23,26 @@ namespace TimeTrackerUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _tracker = new Tracker(GetTasks());
-            UpdateCombobox();
+            _tracker = new Tracker(GetTasks(), new CSV());
+            LoadCombobox();
             PauseButton.IsEnabled = false;
         }
 
-        private void ShowTaskDetails(int index) //**
+        private void ShowTaskDetails(string taskKey)
         {
-            CurrentTimeLabel.Content = _tracker.GetTasks()[index].Name + " Started " + DateTime.Now.ToString("HH:mm:ss");
+            var symbol = '\u25B6';
+            TaskDetailsLabel.Content = symbol.ToString() + " " + _tracker.GetTasks()[taskKey].Name + " | " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (!IsTextNullOrEmpty() && !DoesTaskAlreadyExist())
             {
-                Properties.Settings.Default.Combobox.Add(AddTextBox.Text.ToUpper());
+                string text = AddTextBox.Text.ToUpper();
+                Properties.Settings.Default.Combobox.Add(text);
                 Properties.Settings.Default.Save();
-                UpdateCombobox();
-                UpdateTracker(AddTextBox.Text.ToUpper());
+                UpdateCombobox(text);
+                UpdateTracker(text);
             }
             else
                 MessageBox.Show("Text is not valid.");
@@ -58,43 +51,55 @@ namespace TimeTrackerUI
 
         private bool IsTextNullOrEmpty()
         {
-            return string.IsNullOrEmpty(AddTextBox.Text) ? true : false;
+            return string.IsNullOrEmpty(AddTextBox.Text);
         }
 
         private bool DoesTaskAlreadyExist()
         {
-            return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper()) ? true : false;
+            return SelectionCombobox.Items.Contains(AddTextBox.Text.ToUpper());
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            string selectedItem = SelectionCombobox.SelectedItem.ToString();
-            Properties.Settings.Default.Combobox.Remove(selectedItem);
-            Properties.Settings.Default.Save();
-            UpdateCombobox();
-            UpdateTracker(selectedItem);
+            if (!IsSelectedItemNull())
+            {
+                string selectedItem = GetSelectedItem().ToString();
+                Properties.Settings.Default.Combobox.Remove(selectedItem);
+                Properties.Settings.Default.Save();
+                UpdateCombobox(selectedItem);
+                UpdateTracker(selectedItem);
+            }
+            else
+                MessageBox.Show("Please select a task.");
         }
 
-        private List<TrackerTask> GetTasks()
+        private Dictionary<string, TrackerTask> GetTasks()
         {
-            List<TrackerTask> tasks = new List<TrackerTask>();
+            Dictionary<string, TrackerTask> tasks = new Dictionary<string, TrackerTask>();
             foreach (var item in Properties.Settings.Default.Combobox)
             {
-                tasks.Add(new TrackerTask(item));
+                tasks.Add(item, new TrackerTask(item));
             }
             return tasks;
         }
 
-        private void UpdateTracker(string taskName)
+        private void UpdateTracker(string task)
         {
-            var response = _tracker.GetTasks().Find(x => x.Name == taskName);
-            if (response == null)
-                _tracker.AddTask(new TrackerTask(taskName));
+            if(_tracker.GetTasks().ContainsKey(task))
+                _tracker.RemoveTask(task);
             else
-                _tracker.RemoveTask(response);
+                _tracker.AddTask(task);
         }
 
-        private void UpdateCombobox()
+        private void UpdateCombobox(string task)
+        {
+            if (SelectionCombobox.Items.Contains(task))
+                SelectionCombobox.Items.Remove(task);
+            else
+                SelectionCombobox.Items.Add(task);
+        }
+
+        private void LoadCombobox()
         {
             SelectionCombobox.Items.Clear();
             foreach (var item in Properties.Settings.Default.Combobox)
@@ -103,71 +108,60 @@ namespace TimeTrackerUI
             }
         }
 
-        private int GetSelectedIndex()
+        private object GetSelectedItem()
         {
-            return SelectionCombobox.SelectedIndex;
+            return SelectionCombobox.SelectedItem;
         }
 
-        private void EnableDisableFunctions(bool toggle) //**
+        private bool IsTaskRunning(string selection)
         {
-            AddButton.IsEnabled = toggle;
-            DeleteButton.IsEnabled = toggle;
-            AddTextBox.IsEnabled = toggle;
+            return _tracker.IsTaskRunning(selection);
         }
 
-        private bool IsTaskRunning(int index) //**
+        private void UpdateUI(string selection)
         {
-            return _tracker.IsTaskRunning(index);
-        }
+            if(_tracker.IsTaskJustStarted(selection))
+                ShowTaskDetails(selection);
 
-        private void UpdateUI(int index) //**
-        {
-            if (IsTaskRunning(index))
-            {
-                EnableDisableFunctions(false);
-                StartStopButton.Content = "STOP";
-                ShowTaskDetails(index);      // not working after pause
-            }
+            if (IsTaskRunning(selection))
+                StartStopButton.Template = FindResource("StopButtonTemplate") as ControlTemplate;
             else
-            {
-                EnableDisableFunctions(true);
-                StartStopButton.Content = "START";
-            }
+                StartStopButton.Template = FindResource("PlayButtonTemplate") as ControlTemplate;
+        }
+
+        private bool IsSelectedItemNull()
+        {
+            return GetSelectedItem() == null;
         }
 
         private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
-            PauseButton.IsEnabled = true;
-            if (SelectionCombobox.SelectedItem == null)
-                MessageBox.Show("Please select a task.");
-            else
+            if (!IsSelectedItemNull())
             {
-                var index = GetSelectedIndex();
-                _tracker.UpdateTracker(index);
-                ShowElapsedTime();
-
-                //**
-                UpdateUI(index);
+                PauseButton.IsEnabled = true;
+                var selectedItem = GetSelectedItem().ToString();
+                _tracker.UpdateTracker(selectedItem);
+                StartElapsedTime();
+                UpdateUI(selectedItem);
             }
+            else
+                MessageBox.Show("Please select a task.");
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            PauseButton.IsEnabled = false;
-            if (SelectionCombobox.SelectedItem == null)
-                MessageBox.Show("Please select a task.");
-            else
+            if (!IsSelectedItemNull())
             {
-                var index = GetSelectedIndex();
-                _tracker.PauseTheTask(index);
-
-                //**
-                UpdateUI(index);
-                StartStopButton.Content = "CONTINUE";
+                PauseButton.IsEnabled = false;
+                var selectedItem = GetSelectedItem().ToString();
+                _tracker.PauseTheTask(selectedItem);
+                UpdateUI(selectedItem);
             }
+            else
+                MessageBox.Show("Please select a task.");
         }
 
-        private void ShowElapsedTime()
+        private void StartElapsedTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
@@ -177,27 +171,30 @@ namespace TimeTrackerUI
 
         private void UpdateElapsedTimeTick(object sender, EventArgs e)
         {
-            int selectedIndex = GetSelectedIndex();
-            TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedIndex]);
+            if (!IsSelectedItemNull())
+            {
+                string selectedItem = GetSelectedItem().ToString();
+                TimerLabel.Content = _tracker.GetElapsedTime(_tracker.GetTasks()[selectedItem]);
+            }
         }
 
         private void CheckLogButton_Click(object sender, RoutedEventArgs e)
         {
-            var fileToOpen = _tracker.GetFilePath();
+            var filePath = _tracker.GetFilePath();
             var process = new Process();
 
-            if (File.Exists(fileToOpen))
+            if (File.Exists(filePath))
             {
-                process.StartInfo = new ProcessStartInfo(fileToOpen) { UseShellExecute = true };
+                process.StartInfo = new ProcessStartInfo(filePath) { UseShellExecute = true };
                 process.Start();
             }
             else
                 MessageBox.Show("File not found.");
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) //**
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            _tracker.FinishTheTasks();
         }
 
         private Tracker _tracker;
