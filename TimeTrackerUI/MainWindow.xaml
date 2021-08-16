@@ -72,7 +72,7 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
-                    <Button.Style>
+                    <!--<Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
@@ -87,7 +87,7 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
+                    </Button.Style>-->
                 </Button>
             </Grid>
             <Grid>
@@ -109,7 +109,7 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
-                    <Button.Style>
+                    <!--<Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
@@ -121,7 +121,7 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
+                    </Button.Style>-->
                 </Button>
             </Grid>
             <Grid>
@@ -143,7 +143,7 @@
                             </Ellipse>
                         </ControlTemplate>
                     </Button.Template>
-                    <Button.Style>
+                    <!--<Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
                                 <Trigger Property="IsPressed" Value="True">
@@ -155,7 +155,7 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
+                    </Button.Style>-->
                 </Button>
             </Grid>
             <Grid>
@@ -169,7 +169,7 @@
                 <Border BorderThickness="1.5" Height="40" BorderBrush="Black" CornerRadius="5" Background="White">
                     <Label Name="TaskDetailsLabel" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0"/>
                 </Border>
-                <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click">
+                <Button Name="CheckLogButton" Grid.Column="1" Click="CheckLogButton_Click" Style="{StaticResource ResourceKey=Shadow}">
                     <Button.Template>
                         <ControlTemplate>
                             <Ellipse x:Name="Ellipse" Width="30" Height="30" Stroke="Black" StrokeThickness="1.5">

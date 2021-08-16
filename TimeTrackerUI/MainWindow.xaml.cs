@@ -31,7 +31,7 @@ namespace TimeTrackerUI
         private void ShowTaskDetails(string taskKey)
         {
             var symbol = '\u25B6';
-            TaskDetailsLabel.Content = DateTime.Now.ToString("HH:mm:ss") + " " + symbol.ToString() + " " + _tracker.GetTasks()[taskKey].Name;
+            TaskDetailsLabel.Content = symbol.ToString() + " " + _tracker.GetTasks()[taskKey].Name + " | " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
