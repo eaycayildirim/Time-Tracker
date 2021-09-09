@@ -124,7 +124,7 @@ namespace UnitTestTimeTracker
             //Given
             TrackerTaskTest trackerTask = new TrackerTaskTest("TEST");
             var miliseconds = 2000;
-            List<string> expected = new List<string> { "TEST", "00:00:02", "Started" };
+            List<string> expected = new List<string> { "TEST", "00:00:02", "Continues" };
 
             //When
             trackerTask.Press();

@@ -31,7 +31,17 @@ namespace TimeTrackerUI
         private void ShowTaskDetails(string taskKey)
         {
             var symbol = '\u25B6';
+            var name = _tracker.GetTasks()[taskKey].Name;
+            SetTheFontSize(name);
             TaskDetailsLabel.Content = symbol.ToString() + " " + _tracker.GetTasks()[taskKey].Name + " | " + DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void SetTheFontSize(string name)
+        {
+            if(name.Length > 7)
+                TaskDetailsLabel.FontSize = 12;
+            else
+                TaskDetailsLabel.FontSize = 20;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

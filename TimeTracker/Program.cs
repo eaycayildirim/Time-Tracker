@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TimeTrackerMain
+﻿namespace TimeTrackerMain
 {
     class Program
     {
