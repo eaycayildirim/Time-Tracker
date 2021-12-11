@@ -20,6 +20,7 @@
     <None Remove="Pause.png" />
     <None Remove="Play.png" />
     <None Remove="Stop.png" />
+    <None Remove="Time-Icon.jpg" />
   </ItemGroup>
 
   <ItemGroup>
