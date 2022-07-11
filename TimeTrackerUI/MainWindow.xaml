@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrackerUI"
         mc:Ignorable="d"
-        Title="Time Tracker" MinHeight="250" MinWidth="280" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="White" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Time Tracker" MinHeight="250" MinWidth="280" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#FFC2CCB4" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Window.Resources>
         <ControlTemplate x:Key="PlayButtonTemplate" TargetType="{x:Type Button}">
             <Grid>
