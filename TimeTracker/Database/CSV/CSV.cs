@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using nsIDatabase;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace nsCSV
 {
@@ -8,7 +11,7 @@ namespace nsCSV
     {
         public CSV()
         {
-            this._filePath = "TimeTracker.csv";
+            this._filePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\\TimeTracker.csv";
         }
         public CSV(string filePath)
         {
